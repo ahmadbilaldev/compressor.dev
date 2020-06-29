@@ -11,3 +11,6 @@ To cater for the needs of our project, and in order to consider the Bonus aspect
 ## Interfaces
 
 Keeping in view the project needs, it needs a landing page where the user can simply upload files to encode/decode and download them. Hence the first interface is related to encoding and decoding.
+
+1. Encoding and Decoding
+2. Visualization of Huffman Tree
