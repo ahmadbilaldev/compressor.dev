@@ -75,28 +75,66 @@ void nodeListSorter(Node**& arr, int arrLen)
 
 twoArrayMinimums extractMinFreq(Node** arr,int arrLen)
 {
-    int min = 0;
-    int secondMin = 0;
-    for (int i = 0; i < arrLen; i++)
+    int min = -1;
+    int secondMin = -1;
+    if (arrLen > 1)
     {
-        int  pivot = arr[i]->frequency;
-        for (int j = 0; j < arrLen; j++)
+        for (int i = 0; i < arrLen; i++)
         {
-             if (arr[j]->frequency < pivot)
-             {
-                if (arr[j]->frequency < arr[min]->frequency)
+            int  pivot = i;
+            for (int j = 0; j < arrLen; j++)
+            {
+                if (arr[j]->frequency < arr[pivot]->frequency)
                 {
-                   min = j;
+                    if (min == -1)
+                    {
+                        min = j;
+                        if (secondMin == -1)
+                        {
+                            secondMin = pivot;
+                        }
+                    }
+                    else
+                    {
+                        if (arr[min]->frequency > arr[j]->frequency)
+                        {
+                            secondMin = min;
+                            min = j;
+                        }
+                        else if (arr[min]->frequency != arr[j]->frequency)
+                        {
+                            if (secondMin == -1)
+                            {
+                                secondMin = j;
+                            }
+                            else if (arr[secondMin]->frequency > arr[j]->frequency)
+                            {
+                                secondMin = j;
+                            }
+                        }
+                    }
+
                 }
-                else if (arr[j]->frequency > arr[min]->frequency && arr[j]->frequency < arr[secondMin]->frequency)
+                else if (arr[j]->frequency > arr[pivot]->frequency)
                 {
-                   secondMin = j;
+                    if (secondMin == -1)
+                    {
+                        secondMin = j;
+                    }
+                    else if (arr[secondMin]->frequency > arr[j]->frequency && arr[min]->frequency != arr[j]->frequency)
+                    {
+                        secondMin = j;
+                    }
                 }
 
-             }
-                
+            }
+
         }
-        
+    }
+    else
+    {
+        min = 0;
+        secondMin = 0;
     }
     twoArrayMinimums newMin;
     newMin.minimum = min;
