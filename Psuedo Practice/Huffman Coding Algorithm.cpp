@@ -25,8 +25,6 @@ public:
 struct inputLetters 
 {
     Node** nodeArray;
-    int* freqArray;
-    char* letterArray;
     int totalChar;
 };
 
@@ -101,7 +99,7 @@ twoArrayMinimums extractMinFreq(Node** arr,int arrLen)
                             secondMin = min;
                             min = j;
                         }
-                        else if (arr[min]->frequency != arr[j]->frequency)
+                        else if (arr[min]->letter != arr[j]->letter)
                         {
                             if (secondMin == -1)
                             {
@@ -121,7 +119,7 @@ twoArrayMinimums extractMinFreq(Node** arr,int arrLen)
                     {
                         secondMin = j;
                     }
-                    else if (arr[secondMin]->frequency > arr[j]->frequency && arr[min]->frequency != arr[j]->frequency)
+                    else if (arr[secondMin]->frequency > arr[j]->frequency && arr[min]->letter != arr[j]->letter)
                     {
                         secondMin = j;
                     }
@@ -161,7 +159,7 @@ Node*& huffPuff(int totalChar,Node **&ptr)
         z->right = y;
         z->frequency = x->frequency + y->frequency;
 
-        insertNode(ptr, z, totalChar - i - 2);
+        insertNode(ptr, z, newMins.secondMinimum);
         nodeListSorter(ptr, totalChar - i - 1);
 
        
