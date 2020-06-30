@@ -155,8 +155,8 @@ Node*& huffPuff(int totalChar,Node **&ptr)
         Node* x = new Node();
         Node* y = new Node();
         twoArrayMinimums newMins = extractMinFreq(ptr,totalChar-i);
-        x = ptr[newMins.minimum];
-        y = ptr[newMins.secondMinimum];
+        *x = *ptr[newMins.minimum];
+        *y = *ptr[newMins.secondMinimum];
         z->left = x;
         z->right = y;
         z->frequency = x->frequency + y->frequency;
@@ -164,22 +164,27 @@ Node*& huffPuff(int totalChar,Node **&ptr)
         insertNode(ptr, z, totalChar - i - 2);
         nodeListSorter(ptr, totalChar - i - 1);
 
-        for (int j = 0; j < totalChar - i - 1; j++)
-        {
-            cout << ptr[j]->frequency << " -- " << ptr[j]->letter << endl;
-        }
-        cout << endl << endl;
-
        
 
     }
-    twoArrayMinimums rootMin = extractMinFreq(ptr, totalChar-3);
+    twoArrayMinimums rootMin = extractMinFreq(ptr, totalChar-4);
     Node* rootPtr = new Node();
     *rootPtr = *ptr[0];
     return rootPtr;
 }
 
-
+void inorderTraversal(Node* ptr)
+{
+    if (ptr)
+    {
+        inorderTraversal(ptr->left);
+        if (ptr->left == NULL && ptr->right == NULL)
+        {
+            cout << ptr->letter << " ----- " << ptr->frequency << endl;
+        }
+        inorderTraversal(ptr->right);
+    }
+}
 int main()
 {
     char letters[5] = { 'e','c','b','d','f' };
@@ -194,7 +199,7 @@ int main()
 
     Node* rootNode = new Node();
     rootNode = huffPuff(testInputs.totalChar, testPtr);
-    cout << rootNode->frequency;
+    inorderTraversal(rootNode);
 
 }
 
