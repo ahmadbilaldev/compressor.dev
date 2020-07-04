@@ -28,8 +28,10 @@ Function huffmanEncode(C)
 
 ## Huffman Decode
 ``` js
-// Input: Root is the root of huffman tree
-// Input: S is the bitstream to be decompressed
+/*
+*  Input: Root is the root of huffman tree
+*  Input: S is the bitstream to be decompressed
+*/
 
 Function huffmanDecode(root, S)  
 
@@ -50,7 +52,9 @@ Function huffmanDecode(root, S)
 ```
 ## LZW Encode
 ``` js
-// Input: C is the input array to be encoded.
+/*
+*  Input: C is the input array to be encoded.
+*/
 
 Function lzwEncode(C)  
 
@@ -73,9 +77,11 @@ Function lzwEncode(C)
 
 ## LZW Decode
 ``` js
-- Input: S is the lzw encoded array
-- dict(code) is the dictionary string corresponding to the given index/code.
-- + means string/char concatenation.
+*/
+*  Input: S is the lzw encoded array
+*  dict(code) is the dictionary string corresponding to the given index/code.
+*  + means string/char concatenation.
+*/
 
 Function lzwDecode(S)  
 
