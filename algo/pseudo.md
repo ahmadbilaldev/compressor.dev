@@ -1,8 +1,9 @@
 # Pseudo Code
 
-Our Algorithm uses a modified form of Huffman. We basically employ another algortihm, Lempel–Ziv–Welch. 
-First we apply LZW encoding the the input, and then we encode it further using Huffman encoding. This
-makes for our modified Huffman algorithm whose pseudo code is as follows:
+Our Algorithm uses a modified form of Huffman Coding. We basically employ another algortihm, Lempel–Ziv–Welch. 
+First we apply LZW encoding the the input, and then we encode it further using Huffman encoding. As a result the
+compression is improved signifacantly as compared to a simple Huffman Algorithm. This makes for our modified Huffman
+algorithm whose pseudo code is as follows:
 
 ## Huffman Encode
 ``` js
