@@ -46,4 +46,24 @@ Function huffmanDecode(root, S)
 13  endfor
 14  return result
 ```
+## LZW Encode
+``` js
+// Input: C is a set of n characters and that each character of C is an object with an attribute c:freq giving its frequency
 
+Function lzwEncode(C)  
+
+1   Initialize dictionary/table and enter all characters in it
+2   string s = C[1]  // first input character
+3   result = ""
+4   while any input left
+5     ch = next input character
+6     if s+c is in the dictionary
+7       s = s + ch
+8     else
+9       output dictionary code (index) of s to result array 
+10      add s+ch to dictionary
+11      s = ch
+12    end if
+13  end while
+14  output dictionary code (index) of s to result array
+```
