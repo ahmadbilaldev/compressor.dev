@@ -1,5 +1,9 @@
 # Pseudo Code
 
+Our Algorithm uses a modified form of Huffman. We basically employ another algortihm, Lempel–Ziv–Welch. 
+First we apply LZW encoding the the input, and then we encode it further using Huffman encoding. This
+makes for our modified Huffman algorithm whose pseudo code is as follows:
+
 ## Huffman Encode
 ``` js
 /* Input: C is a set of n characters, coming after encoding by lzw and that
@@ -105,4 +109,35 @@ Function lzwDecode(S)
 17   end if
 18 end while
 19 return decodedString
+```
+
+##  LZW based Huffman Encode
+``` js
+/* 
+*  Input: C is the array to be encoded
+*/
+
+Function finalEncode(C)  
+
+1   C = lzwEncode(C)     // First we lzw encode the input string
+2   Initialize an object objC of C
+2   objC[].freq          // Calculate frequency attribute for each character of lzw encoded array C
+3   encodedString = huffmanEncode(objC)   // Then we encode the lzw encoded string with huffman
+4   output encodedString to file
+5   output huffman coding scheme to file
+```
+
+
+##  LZW based Huffman Decode
+``` js
+/* 
+*  Input: Root is the root of huffman tree
+*  Input: S is the bitstream to be decompressed
+*/
+
+Function finalEncode(root, S)  
+
+1   decodedString = huffmanDecode(root,S)         // First we decode the huffman compressed string
+2   decodedString = lzwDecode(decodedString)      // Then we decoded the resulting string by lzw to get the final string
+4   output decodedString to file
 ```
