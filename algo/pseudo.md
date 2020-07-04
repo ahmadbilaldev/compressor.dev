@@ -2,7 +2,9 @@
 
 ## Huffman Encode
 ``` js
-// Input: C is a set of n characters and that each character of C is an object with an attribute c:freq giving its frequency
+/* Input: C is a set of n characters, coming after encoding by lzw and that
+*  each character of C is an object with an attribute c:freq giving its frequency
+*/
 
 Function huffmanEncode(C)  
 
@@ -48,13 +50,13 @@ Function huffmanDecode(root, S)
 ```
 ## LZW Encode
 ``` js
-// Input: C is a set of n characters and that each character of C is an object with an attribute c:freq giving its frequency
+// Input: C is the input array to be encoded.
 
 Function lzwEncode(C)  
 
 1   Initialize dictionary/table and enter all characters in it
 2   string s = C[1]  // first input character
-3   result = ""
+3   encoded = ""
 4   while any input left
 5     ch = next input character
 6     if s+c is in the dictionary
@@ -66,4 +68,35 @@ Function lzwEncode(C)
 12    end if
 13  end while
 14  output dictionary code (index) of s to result array
+15  return encoded
+```
+
+## LZW Decode
+``` js
+- Input: S is the lzw encoded array
+- dict(code) is the dictionary string corresponding to the given index/code.
+- + means string/char concatenation.
+
+Function lzwDecode(S)  
+
+1  Initialize table/dictionary with all characters
+2  decoded = ""    
+3  read a character k
+4  decodedString = k // Output k
+5  w = k
+
+6  while  read a character k     // k could be a character or a code, will run till end of input stream
+7    if k exists in the dictionary
+8        entry = dict(k) // dictionary entry for k 
+9        decodedString += entry // Output entry
+10       add w + entry[0] to dictionary
+11       w = entry
+12   else
+13       entry = w + firstCharacterOf(w)
+14       decodedString(entry) // Output entry
+15       add entry to dictionary
+16       w = entry;
+17   end if
+18 end while
+19 return decodedString
 ```
