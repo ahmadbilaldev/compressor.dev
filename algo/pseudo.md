@@ -122,10 +122,10 @@ Function finalEncode(C)
 
 1   C = lzwEncode(C)     // First we lzw encode the input string
 2   Initialize an object objC of C
-2   objC[].freq          // Calculate frequency attribute for each character of lzw encoded array C
-3   encodedString = huffmanEncode(objC)   // Then we encode the lzw encoded string with huffman
-4   output encodedString to file
-5   output huffman coding scheme to file
+3   objC[].freq          // Calculate frequency attribute for each character of lzw encoded array C
+4   encodedString = huffmanEncode(objC)   // Then we encode the lzw encoded string with huffman
+5   output encodedString to file
+6   output huffman coding scheme to file
 ```
 
 
@@ -140,5 +140,5 @@ Function finalEncode(root, S)
 
 1   decodedString = huffmanDecode(root,S)         // First we decode the huffman compressed string
 2   decodedString = lzwDecode(decodedString)      // Then we decoded the resulting string by lzw to get the final string
-4   output decodedString to file
+3   output decodedString to file
 ```
