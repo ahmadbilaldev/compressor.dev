@@ -1,0 +1,20 @@
+Function huffmanEncode(C)   
+
+							    Cost               Times
+
+1   n = C.size    		           		     C1			1
+2   Q = priority_queue()            		      	     C2			1
+
+3   for i = 1 to n		          		     C3			N
+4     n = node(C[i]) 	                                     C4                 N-1
+5     Q.push(n)				        	     C5			N-1         
+6   end for
+
+7   while Q.size() is not equal to 1                         C6			N
+8      Z = new node()			      	 	     C7			N-1
+9      Z.left = x = Q.pop			       	     C8			N-1
+10     Z.right = y = Q.pop			             C9			N-1
+11     Z.frequency = x.frequency + y.frequency               C10		N-1
+12     Q.push(Z)        				     C11		N-1
+13  end while
+14 Return Q   					             C12		1
