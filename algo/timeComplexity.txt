@@ -37,3 +37,11 @@ Best Case:
 	  respectively to loop.
 	  T(n) = (C3 + C4 + C5 + C6 + C7 + C8 + C9 + C10 + C11)N + (C1 + C2 + C3 + C6 + C12)
 	  Making this a linear function an+b and running time of O(n).
+Worst Case:
+	  In worst case the summation would run through whole array or set Tj = n(n+1)/2 while in Tq.size() assuming that
+	  the size starts from n and completes the whole set or array then it would also become same as Tj which is
+	  n(n+1)/2
+	  So T(n) = C1 + C2 + C3(N+1) + C4(N) + C5(n(n+1)/2) + C6(N+1) + C7(N) + C8(N) +C9(N) + C10(N) + C11(n(n+1)/2) +
+		    C12
+		  = ((C5 +C11)N^2)/2 + (C3 + C4 + C5 + C6 + C7 + C8 + C9 + C10 + C11)N + 
+		    (C1 + C2 + C3 + 1/2(C5 +C11) + C6 + C12)
