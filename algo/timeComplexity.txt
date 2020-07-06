@@ -31,3 +31,9 @@ in body of loop gets executed for N times and outside the body executes for the 
 which push function of priority queue is called. In these lines further loop executes in push function to locate the 
 position of new node and set it their, In this step time complexity becames same as using a nested loop so we have 
 to calculate a new time Tj and Tq.size() for these lines.
+Best Case:
+	  For optimal condtion we would consider that at line 5 & 12 the node will be inserted at its first iteration of loop
+	  or at the start of queue using constant time making Tj & Tq.size() = 1 and the whole line will be executed 
+	  respectively to loop.
+	  T(n) = (C3 + C4 + C5 + C6 + C7 + C8 + C9 + C10 + C11)N + (C1 + C2 + C3 + C6 + C12)
+	  Making this a linear function an+b and running time of O(n).
