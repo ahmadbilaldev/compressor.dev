@@ -45,3 +45,4 @@ Worst Case:
 		    C12
 		  = ((C5 +C11)N^2)/2 + (C3 + C4 + C5 + C6 + C7 + C8 + C9 + C10 + C11)N + 
 		    (C1 + C2 + C3 + 1/2(C5 +C11) + C6 + C12)
+          Making this a quadratic function  AN^2 + BN + C and O(N^2) which is similar to insertion sort etc.
