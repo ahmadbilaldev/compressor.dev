@@ -7,18 +7,18 @@
     2   Q = priority_queue()				 C2		 N  
 
     3   for i = 1 to n					 C3		 N+1
-    4     n = node(C[i]) 	                                 C4                                 N
-    5     Q.push(n)				                 C5			          N(logN)       
+    4     n = node(C[i])					 C4		 N
+    5     Q.push(n)						 C5		 N(logN)       
     6   end for
 
-    7   while Q.size() is not equal to 1                         C6			            N+1
-    8      Z = new node()			      	 	 C7			             N
-    9      Z.left = x = Q.pop			       	         C8			             N
-    10     Z.right = y = Q.pop			                 C9			             N
-    11     Z.frequency = x.frequency + y.frequency               C10		                     N
-    12     Q.push(Z)        				         C11				  N(logN)
+    7   while Q.size() is not equal to 1			 C6		 N+1
+    8      Z = new node()			      	 	 C7		 N
+    9      Z.left = x = Q.pop				 C8		 N
+    10     Z.right = y = Q.pop				 C9		 N
+    11     Z.frequency = x.frequency + y.frequency		 C10		 N
+    12     Q.push(Z)					 C11		 N(logN)
     13  end while
-    14 Return Q                                                  C12                                 1
+    14 Return Q						 C12		 1
 
 #### Analysis
 The Ruuning time for this algorithm is sum of all the  individual steps invloved in this algorithm which compute and tells 
