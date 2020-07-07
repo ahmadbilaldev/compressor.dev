@@ -2,11 +2,11 @@
 ## Huffman Encoding
     Function huffmanEncode(C)   
 
-							         Cost                 Times
-    1   n = C.size    		           		         C1			            1
-    2   Q = priority_queue()            		         C2			            N  
+							        Cost           Times
+    1   n = C.size						 C1		 1
+    2   Q = priority_queue()				 C2		 N  
 
-    3   for i = 1 to n		          		         C3			           N+1
+    3   for i = 1 to n					 C3		 N+1
     4     n = node(C[i]) 	                                 C4                                 N
     5     Q.push(n)				                 C5			          N(logN)       
     6   end for
