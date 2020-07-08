@@ -35,25 +35,22 @@ Function huffmanEncode(C)
 ``` js
 /*
 *  Input: Root is the root of huffman tree
-*  Input: S is the bitstream to be decompressed
+*  Input: S is the encoded string
 */
 
 Function huffmanDecode(root, S)  
 
 1   n = S.size
-2   for i := 1 to n
-3     current = root
-4     while current.left != NULL and current.right != NULL
-5       if S[i] is equal to '0'
-6           current := current.left
-7       else
-8           current := current.right
-9       endif
-10      i := i+1
-11    endwhile
-12   result += current.symbol
-13  endfor
-14  return result
+2   current = root
+3   for i=1 to n
+4      if(s[i] == '0'
+5         current = current.left
+6      else
+7         current = current.right
+8      if(current.left == NULL and current.right == NULL
+9         decodedString += current.data
+10        current = root
+14  return decodedString
 ```
 ## LZW Encode
 ``` js
