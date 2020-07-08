@@ -242,7 +242,11 @@ costing linear time only.
 #### Best Case
 
 ---
+In the best case we will assume that the encoded string is small and it contains same char with multiple entries. So T(n) is
 
+``` T(n) = (C1 +C6 + C7 +C8 + C9 + C10 + C11)N + (C2 + C3 + C4 + C5 + C6 + C16)```
+
+Making this a linear function **An + B** and time is **O(n)**.
 
 ---
 
