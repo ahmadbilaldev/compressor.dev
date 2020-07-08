@@ -71,3 +71,14 @@ In the above expression we can see that this is just a basic loop iterating for 
 and every other statement will run for N times except the loop statement which will run for N+1 times to check for the terminating condition as well. At line 5 & 7 only one of them will run so we will take the maximum of those statement.
 
 ---
+
+#### Best Case
+
+---
+For optimal condtion we would consider that the string is small and the line 9 & 10 never run or run for fewer time in this loop. In this way the time complexity we get is as follow
+
+	  T(n) = (C3 + C4 + C7 + max(C5,C6) + C8 + C9)N + (C1 + C2 + C3 + C10)
+	  
+Making this a linear function **AN + B** and running time of **O(N)**.
+
+---
