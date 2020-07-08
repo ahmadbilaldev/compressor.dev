@@ -20,7 +20,7 @@
     13  end while
     14 Return Q						 C12		 1
 
-#### Analysis
+### Analysis
 ---
 The Ruuning time for this algorithm is sum of all the  individual steps invloved in this algorithm which compute and tells 
 time T(n).
@@ -71,7 +71,7 @@ Function huffmanDecode(root, S)
 11  return decodedString                                        C10           1
 
 ```
-#### Analysis
+### Analysis
 
 ---
 The Ruuning time for this algorithm is sum of all the  individual steps invloved in this algorithm which compute and tells 
@@ -146,6 +146,7 @@ Function lzwEncode(C)
 | 15   | C12  | 1     |
 
 ### Analysis
+
 #### Choice of Data Structure for Optimizing Algortihm
 
 ---
@@ -167,9 +168,19 @@ Coming back to analysis we can see that the line 1 has running time N because a 
 
 #### Best Case
 ---
-In best case the next character will already exist in dictionary so in that case it wont have to add a new character in dictionary rather than increment it. So
+In best case the next character will almost already exist in dictionary so in that case it wont have to add a new character in dictionary rather than increment it. So
 
 ``` T(n) = (C1 + C4 + C5 + C6 + C7)N + (C2 + C3 + C4 + C11 + C12)```
 
-In this way we can see that the it is behaving like a linear function **An + B** having running time O(n).
+In this way we can see that the it is behaving like a linear function **An + B** having running time **O(n)**.
 
+---
+### Worst Case
+---
+In the worst case we will see that every new character will be added into the dictionary as a new character and it will not exist more than once. So in this case running time is 
+
+``` T(n) = (C1 + C4 + C5 + C6 + C9 + C10 + C11)N + (C2 + C3 + C4 + C11 + C12) ```
+
+So in the worst case we can see that it is also behaving as a linear function **An + B** having running time **O(n)**.
+
+---
