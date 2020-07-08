@@ -82,3 +82,16 @@ For optimal condtion we would consider that the string is small and the line 9 &
 Making this a linear function **AN + B** and running time of **O(N)**.
 
 ---
+
+#### Worst Case
+
+---
+In worst case the whole loop will run and possibly in revery iteration loop will go through line 9 & 10.
+So the time complexity is
+
+        T(n) = (C3 + C4 + C7 + max(C5,C6))N + (C1 + C2 + C3 + C10)
+
+This time complexity also shows that this code at its worst condition will still show behaviour of linear equation **AN + B** therefore
+the running time will be **O(n)**. Its best case running time and worst Case running time has same time has same big-O notation of O(n).
+
+---
