@@ -41,3 +41,21 @@ So
 		     = (C5 +C11)NlogN + (C2 + C3 + C4 + C6 + C7 + C8 + C9 + C10 )N + (C1 + C2 + C3 + 1/2(C5 +C11) + C6 + C12)
 
 Making this a logarithmic equation **A(NlogN) + BN + C** which has time complexity of **O(NlogN)**.
+
+## Huffman Decoding
+```
+Function huffmanDecode(root, S)  
+                                                               Cost         Time
+1   n = S.size                                                  C1            1  
+2   current = root                                              C2            1
+3   for i=1 to n                                                C3           N+1
+4      if(s[i] == '0')                                          C4            N 
+5         current = current.left                                C5            N
+6      else                                                      
+7         current = current.right                               C6            N  
+8      if(current.left == NULL and current.right == NULL        C7            N 
+9         decodedString += current.data                         C8            N 
+10        current = root                                        C9            N 
+11  return decodedString                                        C10           1
+
+```
