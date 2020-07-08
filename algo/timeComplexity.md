@@ -159,5 +159,9 @@ complexity for the line 6 will be NxN. Taking the overall complexity to O(N^2). 
 which have O(1) complexity for insertion and deletion. Our choice reduces the overall complexity to **O(N)** which is a major improvement over 
 O(N^2). That is why, in these following lines 1,6,9,10,14 we have dealt it as linear time.
 
+Coming back to analysis we can see that the line 1 has running time N because a new data structure of dictionary is being applied here therefore it will take N time. As for the rest of the code we see that line 2,3,14,15 are out of loop so they are executed constant time and any other line in loop will be executed for N times except for the line 7 & 9,10 which will have runtime of max(C7,(C9+C10+C11)) because its in if condition so there is only one case will run at each iteraion so the time is T(N).
+
+``` T(n) = (C1 + C4 + C5 + C6 + max(C7,(C9+C10+C11)))N + (C2 + C3 +C4 + C11 + C12)```
+
 ---
 
