@@ -59,3 +59,15 @@ Function huffmanDecode(root, S)
 11  return decodedString                                        C10           1
 
 ```
+#### Analysis
+
+---
+The Ruuning time for this algorithm is sum of all the  individual steps invloved in this algorithm which compute and tells 
+time T(n).
+
+     T(n) = C1 + C2 + C3(N+1) + C4(N)+ max(C5,C6)N + C7(N) + C8(N) + C9(N) + C10 
+
+In the above expression we can see that this is just a basic loop iterating for n. In this code we can see line 1 & 2 will run at constant time
+and every other statement will run for N times except the loop statement which will run for N+1 times to check for the terminating condition as well. At line 5 & 7 only one of them will run so we will take the maximum of those statement.
+
+---
