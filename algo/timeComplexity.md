@@ -1,4 +1,7 @@
 # Time Complexity Analysis
+
+Both Huffman and lzw are based on **greedy** strategy. Their time complexity analysis is as follows:
+
 ## Huffman Encoding
     Function huffmanEncode(C)   
 
@@ -248,8 +251,8 @@ Function lzwDecode(S)
 #### Analysis
 
 ---
-The Ruuning time for this algorithm is sum of all the  individual steps invloved in this algorithm which compute and tells 
-time T(n). We will use a linear search and insert data structure such as a trie or hash table, making search and insert functions
+The Running time for this algorithm is sum of all the individual steps invloved in this algorithm which compute and tells 
+time T(n). We will use a linear search and insert data structure such as a trie or hash table, making search and insert functions
 costing linear time only.  
 
 ---
@@ -275,6 +278,36 @@ In the Worst case we will assume that the encoded string is very large and each 
 Making this also a linear function **An + B** and time is **O(n)**.
 
 ---
+
+##  Combined Time Complexity for Encoding
+
+Our finalEncode function uses lzw and then huffman algorithm for encoding. Hence the running time can be written as T(n) such that
+
+```T(n) = max(C1,C2)```
+where C1 is the cost of lzwEncode and C2 is the cost of huffmanEncode.
+
+#### Best Case
+
+For best case, both C1 and C2 are O(n) hence the best case complexity will be **O(n)**.
+
+#### Worst Case
+
+For worst case, the cost of huffmanEncode C2 is O(nlogn) while lzwEncode is O(n). so worst case will be maximum of these two, **O(nlogn)**.
+
+##  Combined Time Complexity for Decoding
+
+Our finalEncode function uses lzw and then huffman algorithm for encoding. Hence the running time can be written as T(n) such that
+
+```T(n) = max(C1,C2)```
+where C1 is the cost of lzwDecode and C2 is the cost of huffmanDecode.
+
+#### Best Case
+
+For best case, both C1 and C2 are O(n) hence the best case complexity will be **O(n)**.
+
+#### Worst Case
+
+For worst case, the cost of huffmanDecode and lzwDecode is the same i-e O(n), so worst case complexity is **O(n)**.
 
 ## Proof of Correctness using Inductive Hypothesis
 
