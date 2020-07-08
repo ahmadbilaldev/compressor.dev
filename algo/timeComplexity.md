@@ -145,7 +145,7 @@ Function lzwEncode(C)
 | 14   | C11  | 1     |
 | 15   | C12  | 1     |
 
-#### Analysis
+### Analysis
 #### Choice of Data Structure for Optimizing Algortihm
 
 ---
@@ -164,4 +164,12 @@ Coming back to analysis we can see that the line 1 has running time N because a 
 ``` T(n) = (C1 + C4 + C5 + C6 + max(C7,(C9+C10+C11)))N + (C2 + C3 +C4 + C11 + C12)```
 
 ---
+
+#### Best Case
+---
+In best case the next character will already exist in dictionary so in that case it wont have to add a new character in dictionary rather than increment it. So
+
+``` T(n) = (C1 + C4 + C5 + C6 + C7)N + (C2 + C3 + C4 + C11 + C12)```
+
+In this way we can see that the it is behaving like a linear function **An + B** having running time O(n).
 
