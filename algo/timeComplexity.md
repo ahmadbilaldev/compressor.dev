@@ -184,3 +184,69 @@ In the worst case we will see that every new character will be added into the di
 So in the worst case we can see that it is also behaving as a linear function **An + B** having running time **O(n)**.
 
 ---
+
+## LZW Decoding
+
+```
+Function lzwDecode(S)  
+
+1  Initialize table/dictionary with all characters
+2  decoded = ""    
+3  read a character k
+4  decodedString = k 
+5  w = k
+6  while  read a character k     
+7    if k exists in the dictionary
+8        entry = dict(k) 
+9        decodedString += entry 
+10       add w + entry[0] to dictionary
+11       w = entry
+12   else
+13       entry = w + firstCharacterOf(w)
+14       decodedString += entry 
+15       add entry to dictionary
+16       w = entry;
+17   end if
+18 end while
+19 return decodedString
+```
+
+| Line | Cost | Times |
+|:----:|:----:|:-----:|
+| 1    | C1   | Nx1=N |
+| 2    | C2   | 1     |
+| 3    | C3   | 1     |
+| 4    | C4   | 1     |
+| 5    | C5   | 1     |
+| 6    | C6   | N+1   |
+| 7    | C7   | N     |
+| 8    | C8   | N     |
+| 9    | C9   | N     |
+| 10   | C10  | N     |
+| 11   | C11  | N     |
+| 13   | C12  | N     |
+| 14   | C13  | N     |
+| 15   | C14  | N     |
+| 16   | C15  | N     |
+| 19   | C16  | 1     |
+
+#### Analysis
+
+---
+The Ruuning time for this algorithm is sum of all the  individual steps invloved in this algorithm which compute and tells 
+time T(n). We will use a linear search and insert data structure such as a trie or hash table, making search and insert functions
+costing linear time only.  
+
+---
+
+#### Best Case
+
+---
+
+
+---
+
+#### Worst Case
+
+---
+
