@@ -54,6 +54,7 @@ Making this a logarithmic equation **A(NlogN) + BN + C** which has time complexi
 
 
 ## Huffman Decoding
+
 ```
 Function huffmanDecode(root, S)  
                                                                Cost         Time
@@ -104,5 +105,62 @@ So the time complexity is
 
 This time complexity also shows that this code at its worst condition will still show behaviour of linear equation **AN + B** therefore
 the running time will be **O(n)**. Its best case running time and worst Case running time has same time has same big-O notation of O(n).
+
+---
+
+## LZW Encoding
+
+```
+Function lzwEncode(C)  
+									
+1   Initialize dictionary
+2   string s = C[1]  
+3   encoded = ""
+4   while any input left
+5     ch = next input character
+6     if s+c is in the dictionary
+7       s = s + ch
+8     else
+9       output dictionary code (index) of s to result array 
+10      add s+ch to dictionary
+11      s = ch
+12    end if
+13  end while
+14  output dictionary code (index) of s to result array
+15  return encoded
+```
+
+| Line | Cost | Times |
+|:----:|:----:|:-----:|
+| 1    | C1   | Nx1=N |
+| 2    | C2   | 1     |
+| 3    | C3   | 1     |
+| 4    | C4   | N+1   |
+| 5    | C5   | N     |
+| 6    | C6   | N     |
+| 7    | C7   | N     |
+| 9    | C8   | N     |
+| 10   | C9   | N     |
+| 11   | C10  | N     |
+| 14   | C11  | 1     |
+| 15   | C12  | 1     |
+
+
+#### Choice of Data Structure for Optimizing Algortihm
+
+---
+
+The point of interest in this function is that we have to store a dictionary in some sort of a data structure. For choosing the
+best data structure, we first analyse it and see the requirements. As seen in lines `1,6,9,10,14` we are using **insert** and **search**
+functions. If we use a data structure that offers **linear** insertion and search, we will have an optimized time complexity.
+
+Consider the following example, if we simply use an array for this purpose, which has O(N) for insertion and deletion, then the worst case 
+complexity for the line 6 will be NxN. Taking the overall complexity to O(N^2). Thats why, we employ either a **hash table** or a **trie** 
+which have O(1) complexity for insertion and deletion. Our choice reduces the overall complexity to **O(N)** which is a major improvement over 
+O(N^2). That is why, in these following lines 1,6,9,10,14 we have dealt it as linear time.
+
+---
+
+#### Analysis
 
 ---
