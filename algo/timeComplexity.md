@@ -253,4 +253,10 @@ Making this a linear function **An + B** and time is **O(n)**.
 #### Worst Case
 
 ---
+In the Worst case we will assume that the encoded string is very large and each char has very low frequency. So T(n) is
 
+``` T(n) = (C1 +C6 + C7 +C12 + C13 + C14 + C15)N + (C2 + C3 + C4 + C5 + C6 + C16)```
+
+Making this also a linear function **An + B** and time is **O(n)**.
+
+---
