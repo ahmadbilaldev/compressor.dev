@@ -145,7 +145,7 @@ Function lzwEncode(C)
 | 14   | C11  | 1     |
 | 15   | C12  | 1     |
 
-
+#### Analysis
 #### Choice of Data Structure for Optimizing Algortihm
 
 ---
@@ -161,6 +161,3 @@ O(N^2). That is why, in these following lines 1,6,9,10,14 we have dealt it as li
 
 ---
 
-#### Analysis
-
----
