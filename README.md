@@ -16,4 +16,9 @@ Keeping in view the project needs, it needs a landing page where the user can si
 
 ## Pseudo Code
 
-You can view the pseudo code [here](/algo/pseudo.md).
+The pseudo code can be viewed [here](/algo/pseudo.md).
+
+## Time Complexity and Correctness Analysis
+
+The time complexity analysis can be viewed [here](/algo/timeComplexity.md).
+
