@@ -2,9 +2,11 @@ class node
 {
    constructor(frequency,letter)
    {
-       this.freq = frequency;
-       this.letter = letter;
+       this.nodeFreq = frequency;
+       this.nodeChar = letter;
        this.next = null;
+       this.left = null;
+       this.right = null;
    } 
 }
 class priority_queue
@@ -18,17 +20,17 @@ class priority_queue
     {
         if(this.head == null)
         {
-           this.head = node1;
+            this.head = node1;
             node1.next = null;
             this.tail = node1;
             this.head.next = null;
         }
-        else if(this.head.freq < node1.freq)
+        else if(this.head.nodeFreq < node1.nodeFreq)
         {
             node1.next = this.head;
             this.head = node1;
         }
-        else if(this.tail.freq >= node1.freq)
+        else if(this.tail.nodeFreq >= node1.nodeFreq)
         {
             this.tail.next = node1;
             this.tail = node1;
@@ -38,7 +40,7 @@ class priority_queue
         {
             var bptr,rptr = null;
             rptr = bptr = this.head;
-            while(rptr.freq >= node1.freq)
+            while(rptr.nodeFreq >= node1.nodeFreq)
             {
                 bptr = rptr;
                 rptr = rptr.next;
@@ -52,14 +54,14 @@ class priority_queue
     {
         var ptr = this.head;
         var retNode = null;
-        if(ptr.next.next)
+        if(ptr.next != null)
         {
-            while(ptr.next.next)
-        {
-            ptr = ptr.next;
-        }
+            while(ptr.next.next != null)
+            {
+               ptr = ptr.next;
+            }
         this.tail = ptr;
-        retNode = this.tail.next;
+        retNode = ptr.next;
         this.tail.next = null;
         }
         else if(ptr.next == null)
@@ -68,41 +70,66 @@ class priority_queue
             this.head = null;
             this.tail = null;
         }
-        else if(ptr = null)
+        else if(ptr == null)
         {
-            return;
+            return retNode;
         }
         return retNode;
     }
 
     print()
     {
+        
         var ptr = this.head;
         while(ptr != null)
         {
-            console.log(ptr.freq,ptr.letter);
+            console.log(ptr.nodeFreq,ptr.nodeChar);
             ptr = ptr.next;
         }
     }
 }
 
+class mainInform
+{
+    constructor()
+    {
+        this.totalChar = [];
+        this.totalFreq = [];
+}   }
+
+
+function huffmann(informSet)
+{
+    console.log("In the Huffman");
+    size = informSet.totalFreq.length;
+    Q1 = new priority_queue();
+    let n = [];
+    for (let i = 0; i < size; i++)
+    {
+        n[i] = new node(informSet.totalFreq[i],informSet.totalChar[i]);
+        Q1.push(n[i]);
+    }
+
+    for(let i = 0; i<size-1;i++)
+    {
+        z = new node();
+        var x = null;
+        var y = null;
+        z.left = x = Q1.pop();
+        z.right = y = Q1.pop();
+        z.nodeFreq = x.nodeFreq + y.nodeFreq;
+        x.next = null;
+        y.next = null;
+        Q1.push(z);
+    }
+    treePtr = Q1.head;
+    return treePtr;
+}
+
 
 console.log("Working");
-n1 = new node(12,'e');
-n2 = new node(15,'a');
-n3 = new node(3,'y');
-n4 = new node(18,'v');
-n5 = new node(6,'w');
-n6 = new node(16,'o');
-newQueue = new priority_queue();
-newQueue.push(n1);
-newQueue.push(n2);
-newQueue.push(n3);
-newQueue.push(n4);
-newQueue.push(n5);
-newQueue.print();
-var removalFirst = newQueue.pop();
-var remmovalSec = newQueue.pop();
-console.log("after the removal and insertion");
-newQueue.push(n6);
-newQueue.print();
+newInformSet = new mainInform();
+newInformSet.totalChar = ['a','b','e','f','z'];
+newInformSet.totalFreq = [11,23,1,3,8];
+mainPtr = huffmann(newInformSet);
+console.log(mainPtr);
