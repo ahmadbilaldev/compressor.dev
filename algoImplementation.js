@@ -4,6 +4,7 @@ class node
    {
        this.nodeFreq = frequency;
        this.nodeChar = letter;
+       this.code = -1;
        this.next = null;
        this.left = null;
        this.right = null;
@@ -125,11 +126,50 @@ function huffmann(informSet)
     treePtr = Q1.head;
     return treePtr;
 }
-
-
+function treeTraversal(rootPtr)
+{
+    if(rootPtr != null)
+    {
+        treeTraversal(rootPtr.left);
+        if(!rootPtr.left && !rootPtr.right)
+        {
+            console.log(rootPtr.nodeFreq,rootPtr.nodeChar,rootPtr.code);
+        }
+        treeTraversal(rootPtr.right);
+    }
+}
+function codeAssigner(rootNode, s = '')
+{
+    if(rootNode)
+    {
+        if(rootNode.left !== null)
+        {
+           codeAssigner(rootNode.left, s +'0');
+        }    
+        else
+        {
+            codeAssigner(rootNode.left, s);
+        }
+        
+        if(!rootNode.left && !rootNode.right)
+        {
+            rootNode.code = s;
+        }
+        
+        if(rootNode.right !== null)
+        {
+            codeAssigner(rootNode.right, s +'1');
+        }
+        else
+        {
+            codeAssigner(rootNode.right, s);
+        }
+    }
+}
 console.log("Working");
 newInformSet = new mainInform();
 newInformSet.totalChar = ['a','b','e','f','z'];
-newInformSet.totalFreq = [11,23,1,3,8];
+newInformSet.totalFreq = [11,23,1,1,8];
 mainPtr = huffmann(newInformSet);
-console.log(mainPtr);
+codeAssigner(mainPtr);
+treeTraversal(mainPtr);
