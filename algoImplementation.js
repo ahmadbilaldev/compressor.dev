@@ -48,6 +48,32 @@ class priority_queue
         }
         
     }
+    pop()
+    {
+        var ptr = this.head;
+        var retNode = null;
+        if(ptr.next.next)
+        {
+            while(ptr.next.next)
+        {
+            ptr = ptr.next;
+        }
+        this.tail = ptr;
+        retNode = this.tail.next;
+        this.tail.next = null;
+        }
+        else if(ptr.next == null)
+        {
+            retNode = ptr;
+            this.head = null;
+            this.tail = null;
+        }
+        else if(ptr = null)
+        {
+            return;
+        }
+        return retNode;
+    }
 
     print()
     {
@@ -67,10 +93,16 @@ n2 = new node(15,'a');
 n3 = new node(3,'y');
 n4 = new node(18,'v');
 n5 = new node(6,'w');
+n6 = new node(16,'o');
 newQueue = new priority_queue();
 newQueue.push(n1);
 newQueue.push(n2);
 newQueue.push(n3);
 newQueue.push(n4);
 newQueue.push(n5);
+newQueue.print();
+var removalFirst = newQueue.pop();
+var remmovalSec = newQueue.pop();
+console.log("after the removal and insertion");
+newQueue.push(n6);
 newQueue.print();
