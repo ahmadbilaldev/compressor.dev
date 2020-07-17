@@ -1,0 +1,19 @@
+{
+  "name": "huffman-compressor",
+  "version": "1.0.0",
+  "description": "A web app for encoding and decoding using a modified Huffman Algorithm.",
+  "main": "huffman.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ahmadbilaldev/CS311S20PID03.git"
+  },
+  "author": "Ahmad Bilal, Muhammad Faisal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ahmadbilaldev/CS311S20PID03/issues"
+  },
+  "homepage": "https://github.com/ahmadbilaldev/CS311S20PID03#readme"
+}
