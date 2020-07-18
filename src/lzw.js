@@ -52,60 +52,7 @@ function lzwEncoder(inputString)
     return encodedData.join("");
 }
 
-function lzwDecoder(newObj,encodedString)
-{
-    let decodedString = '';
-    let k = 0;
-    let i = 0;
-    while(i < encodedString.length)
-    {
-        newCode = encodedString[i];
-        if(encodedString[i] <= Object.keys(newObj).length)
-        {
-            let j = 1;
-            let z = encodedString[i];
-            for(const [key,value] of Object.entries(newObj))
-            {   
-                if(j == z)
-                {
-                    decodedString += key;
-                }
-                j++;
-            }
-            i++;
-        }
-        else
-        {
-            let dictIndex = Object.keys(newObj).length;
-            let m = 0;
-            let currentChar,nextChar,previousChar = '';
-            currentChar = decodedString[0];
-            while(dictIndex <= encodedString[i])
-            {
-                while(m < decodedString.length)
-                {
-                    if(newObj.hasOwnProperty(decodedString[m]))
-                    {
-                        previousChar = currentChar;
-                        currentChar = decodedString[m+1];
-                        nextChar = decodedString[m+1];
-                        m++;
-                    }
-                    else
-                    {
 
-
-                    }
-                }
-            }   
-        }
-      
-        
-        
-    }
-
-  console.log(decodedString);
-}
 
 
 let string = "abcaababcbbcab";
