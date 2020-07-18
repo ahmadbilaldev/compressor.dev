@@ -1,19 +1,3 @@
-/*
-the function to make an object that has key value pairs
-*/
-function getFrequencies(inputString) {
-	const freqObj = {};
-
-	for (let char of inputString) {
-		if (freqObj[char]) {
-			freqObj[char]++; // If character exixts, increment its frequency.
-		} else {
-			freqObj[char] = 1; // if character doesnt exist, add it with frequency 1.
-		}
-	}
-    return freqObj;
-}
-
 function lzwEncoder(inputString)
 {
     var myDict = {};
@@ -76,7 +60,7 @@ function lzw_decode(encodedString) {
             }
             else
             {
-                selectedChar = (prevSelectedChar + currChar); //if its not present then its always going to be last+current
+                selectedChar = (prevSelectedChar + currChar); //if its not present then its always going to be last+current character
             }
         }
 
