@@ -1,3 +1,6 @@
+/*
+the function to make an object that has key value pairs
+*/
 function getFrequencies(inputString) {
 	const freqObj = {};
 
@@ -11,27 +14,46 @@ function getFrequencies(inputString) {
     return freqObj;
 }
 
-function lzwEncoder(freqObj,inputString)
+function lzwEncoder(newObj,inputString)
 {
+    let freqObj = newObj;
     let encodedString = '';
-    pChar = inputString[0];
-    for(let i=0;i<inputString.length;i++)
+    let previousChar = '';
+    let nextChar = '';
+    currentChar = inputString[0];
+    let i = 0;
+    while(i < inputString.length)
     {
-        nextChar = inputString[i+1];
-        if(console.log(newObj.hasOwnProperty(pChar)))
+        if(freqObj.hasOwnProperty(currentChar))
         {
-            pChar += nextChar;
+            previousChar = currentChar;
+            currentChar += inputString[i+1];
+            nextChar = inputString[i+1];
+            i++;
         }
         else
         {
-            freqObj[pChar]++;
-            var index = freqObj.products.map((o) => o.attr1).indexOf(inputString[i]);
-            encodedString += index.toString;
-            pChar = nextChar; 
+            let index = -1;
+            let j = 1;
+            for(const [key,value] of Object.entries(freqObj))
+            {   
+                if(key == previousChar)
+                {
+                    index = j;
+                }
+                j++;
+            }
+            encodedString += index;
 
+            freqObj[currentChar]++;
+            previousChar ='';
+            nextChar = '';
+            currentChar = inputString[i]; 
+            
         }
     }
     console.log(encodedString);
+    return encodedString;
 }
 
 
@@ -39,4 +61,6 @@ function lzwEncoder(freqObj,inputString)
 
 let string = "abbacbbabaacbbac";
 let newObj = getFrequencies(string);
+let j =0;
+console.log(newObj);
 lzwEncoder(newObj,string);
