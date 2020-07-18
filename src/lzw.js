@@ -20,16 +20,28 @@ function lzwEncoder(newObj,inputString)
     let encodedString = '';
     let previousChar = '';
     let nextChar = '';
+    let lasChar = false;
     currentChar = inputString[0];
     let i = 0;
-    while(i < inputString.length)
+    while(i <= inputString.length)
     {
+        if( (i == inputString.length))  lasChar = true;
+
         if(freqObj.hasOwnProperty(currentChar))
         {
             previousChar = currentChar;
-            currentChar += inputString[i+1];
-            nextChar = inputString[i+1];
-            i++;
+            if(lasChar)
+            {
+                currentChar = '';
+                nextChar = '';
+            }
+            else
+            {
+                currentChar += inputString[i+1];
+                nextChar = inputString[i+1];
+                i++;
+            }
+           
         }
         else
         {
@@ -44,11 +56,19 @@ function lzwEncoder(newObj,inputString)
                 j++;
             }
             encodedString += index;
+            if(!lasChar)
+            {
+                freqObj[currentChar]++;
+                previousChar ='';
+                nextChar = '';
+                currentChar = inputString[i]; 
+            }
+            else
+            {
+                i++;
+            }
 
-            freqObj[currentChar]++;
-            previousChar ='';
-            nextChar = '';
-            currentChar = inputString[i]; 
+           
             
         }
     }
@@ -59,7 +79,7 @@ function lzwEncoder(newObj,inputString)
 
 
 
-let string = "abbacbbabaacbbac";
+let string = "a";
 let newObj = getFrequencies(string);
 let j =0;
 console.log(newObj);
