@@ -14,77 +14,101 @@ function getFrequencies(inputString) {
     return freqObj;
 }
 
-function lzwEncoder(newObj,inputString)
+function lzwEncoder(inputString)
 {
-    let freqObj = newObj;
-    let encodedString = [];
-    let previousChar = '';
-    let nextChar = '';
-    let lasChar = false;
-    currentChar = inputString[0];
-    let i = 0;
-    let k = 0;
-    while(i <= inputString.length)
+    var myDict = {};
+    var convertedData = (inputString + "").split(""); //converting string into array/each corrector separated
+    var encodedData = [];
+    var currentChar;
+    var previousChar = convertedData[0];
+    var comparisonCode = 256; 
+    for (var i = 1; i < convertedData.length; i++) 
     {
-        if( (i == inputString.length))  lasChar = true;
-
-        if(freqObj.hasOwnProperty(currentChar))
+        currentChar=convertedData[i];
+        if (myDict[previousChar + currentChar] != null)  //if that chararcter is found then next char is concatenated
         {
-            previousChar = currentChar;
-            if(lasChar)
-            {
-                currentChar = '';
-                nextChar = '';
-            }
-            else
-            {
-                currentChar += inputString[i+1];
-                nextChar = inputString[i+1];
-                i++;
-            }
-           
+            previousChar += currentChar;
         }
-        else
+        else 
         {
-            let index = -1;
+            if(previousChar.length > 1) encodedData.push(myDict[previousChar]);
+            else encodedData.push(previousChar.charCodeAt(0));
+           
+            myDict[previousChar + currentChar] = comparisonCode;
+            comparisonCode++;
+            previousChar = currentChar;
+        }
+    }
+    //adding last element in encoded string
+    if(previousChar.length > 1) encodedData.push(myDict[previousChar]);
+    else encodedData.push(previousChar.charCodeAt(0));
+   
+    /*
+    converting ascii code into symbols
+    */
+    for (var i=0; i<encodedData.length; i++) {
+        encodedData[i] = String.fromCharCode(encodedData[i]);
+    }
+    return encodedData.join("");
+}
+
+function lzwDecoder(newObj,encodedString)
+{
+    let decodedString = '';
+    let k = 0;
+    let i = 0;
+    while(i < encodedString.length)
+    {
+        newCode = encodedString[i];
+        if(encodedString[i] <= Object.keys(newObj).length)
+        {
             let j = 1;
-            for(const [key,value] of Object.entries(freqObj))
+            let z = encodedString[i];
+            for(const [key,value] of Object.entries(newObj))
             {   
-                if(key == previousChar)
+                if(j == z)
                 {
-                    index = j;
+                    decodedString += key;
                 }
                 j++;
             }
-            
-            encodedString[k] = index;
-            k++;
-            if(!lasChar)
-            {
-                freqObj[currentChar]++;
-                previousChar ='';
-                nextChar = '';
-                currentChar = inputString[i]; 
-            }
-            else
-            {
-                i++;
-            }
-
-           
-            
+            i++;
         }
+        else
+        {
+            let dictIndex = Object.keys(newObj).length;
+            let m = 0;
+            let currentChar,nextChar,previousChar = '';
+            currentChar = decodedString[0];
+            while(dictIndex <= encodedString[i])
+            {
+                while(m < decodedString.length)
+                {
+                    if(newObj.hasOwnProperty(decodedString[m]))
+                    {
+                        previousChar = currentChar;
+                        currentChar = decodedString[m+1];
+                        nextChar = decodedString[m+1];
+                        m++;
+                    }
+                    else
+                    {
+
+
+                    }
+                }
+            }   
+        }
+      
+        
+        
     }
-    console.log(encodedString)
- 
-    return encodedString;
+
+  console.log(decodedString);
 }
 
 
-
-
-let string = "abbacbbabaacbbac";
+let string = "abcaababcbbcab";
+let encoded = [1,2,3,1];
 let newObj = getFrequencies(string);
-let j =0;
-console.log(newObj);
-lzwEncoder(newObj,string);
+console.log(lzwEncoder(string));
