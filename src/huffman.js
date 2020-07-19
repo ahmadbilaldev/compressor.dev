@@ -54,3 +54,15 @@ function buildHuffmanTree(freqObj) {
 	}
 	return minQueue.dequeue();
 }
+
+// Recursively calcuate codes of each character.
+function huffmanCodes(currentNode, codes, currentCode) {
+	// if leaf node reached.
+	if (!(currentNode.left && currentNode.right)) {
+		codes[currentNode.char] = currentCode;
+		return;
+	}
+
+	huffmanCodes(currentNode.left, codes, currentCode + '0');
+	huffmanCodes(currentNode.right, codes, currentCode + '1');
+}
