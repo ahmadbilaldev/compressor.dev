@@ -132,3 +132,17 @@ function outputEncodedString(codes, byteArray, zeroPadding) {
 	const outData = finalEncodedArray;
 	fs.writeFileSync(outFile, outData);
 }
+
+/**
+ * Complete encoding function.
+ * @param {*} inputString - the string to be encoded.
+ */
+function huffmanEncode(inputString) {
+	let freqObj = getFrequencies(inputString);
+	let rootNode = buildHuffmanTree(freqObj);
+	let codes = {}; // object with key-value pairs.
+	huffmanCodes(rootNode, codes, '');
+	let zeroPadding = { count: 0 };
+	let byteArray = codesToByteArray(inputString, codes, zeroPadding);
+	outputEncodedString(codes, byteArray, zeroPadding);
+}
