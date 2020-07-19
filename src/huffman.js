@@ -66,3 +66,46 @@ function huffmanCodes(currentNode, codes, currentCode) {
 	huffmanCodes(currentNode.left, codes, currentCode + '0');
 	huffmanCodes(currentNode.right, codes, currentCode + '1');
 }
+
+function codesToByteArray(inputString, codes, zeroPadding) {
+	let encodedString = '';
+
+	// Read input text and encode it using the codes. Store it in the encodedString.
+	for (i = 0; i < inputString.length; i++) {
+		encodedString += codes[inputString.charAt(i)];
+	}
+
+	// Initialize an array of bytes.
+	let byteArray = new Uint8Array(encodedString.length / 8 + (encodedString.length % 8 != 0 ? 1 : 0));
+
+	// Take one byte of the encodedString at each instance, and put it into byte array as bits.
+	for (i = 0; i < encodedString.length; i += 8) {
+		let oneByte = encodedString.substring(i, i + 8);
+
+		if (oneByte.length < 8) {
+			for (j = oneByte.length; j < 8; j++) {
+				oneByte += '0';
+				zeroPadding.count++;
+			}
+		}
+		let byte = parseInt(oneByte, 2);
+		byteArray[i / 8] = byte;
+	}
+	return byteArray;
+}
+
+function intToByteArray(int, byteArray) {
+	for (let index = 0; index < byteArray.length; index++) {
+		let byte = int & 0xff;
+		byteArray[index] = byte;
+		int = (int - byte) / 256;
+	}
+}
+
+function byteArrayToInt(byteArray) {
+	let intResult = 0;
+
+	for (let i = byteArray.length - 1; i >= 0; i--) {
+		intResult = intResult * 256 + byteArray[i];
+	}
+}
