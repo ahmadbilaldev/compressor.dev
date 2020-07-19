@@ -26,3 +26,31 @@ function getFrequencies(inputString) {
 	}
 	return freqObj;
 }
+
+function buildHuffmanTree(freqObj) {
+	// Initialize a Min Queue, it is Min Queue because it is sorted wrt to frequencies
+	let minQueue = new priorityQueue({
+		// a and b are huffmanNodes, comparator orderss nodes according to frequencies.
+		comparator: function (a, b) {
+			return a.frequency - b.frequency;
+		},
+	});
+
+	/**
+	 * Extracts characters and frequencies from object as key and value
+	 * Makes their nodes and inserts all
+	 * of them in the min queue.
+	 */
+	for (const [key, value] of Object.entries(freqObj)) {
+		let newNode = new HuffmanNode(key, value);
+		minQueue.queue(newNode);
+	}
+	while (minQueue.length > 1) {
+		const leftNode = minQueue.dequeue();
+		const rightNode = minQueue.dequeue();
+		const sumFrequency = leftNode.frequency + rightNode.frequency;
+		const sumNode = new HuffmanNode(null, sumFrequency, leftNode, rightNode);
+		minQueue.queue(sumNode);
+	}
+	return minQueue.dequeue();
+}
