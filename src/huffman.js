@@ -109,3 +109,26 @@ function byteArrayToInt(byteArray) {
 		intResult = intResult * 256 + byteArray[i];
 	}
 }
+
+function outputEncodedString(codes, byteArray, zeroPadding) {
+	let json = JSON.stringify(codes);
+	json = json.replace(/"/g, '');
+	json = json.substring(1, json.length - 1);
+
+	// Populate final encoded bytes array
+	let finalEncodedArray = new Uint8Array(5 + json.length + byteArray.length);
+	intToByteArray(json.length, finalEncodedArray);
+	finalEncodedArray[4] = zeroPadding;
+
+	for (i = 0; i < json.length; i++) {
+		finalEncodedArray[i + 5] = json.charCodeAt(i); // coding scheme
+	}
+
+	for (i = 0; i < byteArray.length; i++) {
+		finalEncodedArray[i + 5 + json.length] = byteArray[i];
+	}
+
+	const outFile = `encoded.txt`;
+	const outData = finalEncodedArray;
+	fs.writeFileSync(outFile, outData);
+}
