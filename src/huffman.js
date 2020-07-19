@@ -1,3 +1,4 @@
+const fs = require('fs');
 const priorityQueue = require('js-priority-queue');
 
 class HuffmanNode {
