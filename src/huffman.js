@@ -111,6 +111,18 @@ function byteArrayToInt(byteArray) {
 	}
 }
 
+/**
+ * Swaps the keys and values of a given object.
+ * @param {*} object
+ */
+function flipObject(obj) {
+	let flippedObj = {};
+	for (let key in obj) {
+		flippedObj[obj[key]] = key;
+	}
+	return flippedObj;
+}
+
 function outputEncodedString(codes, byteArray, zeroPadding) {
 	let json = JSON.stringify(codes);
 	json = json.replace(/"/g, '');
