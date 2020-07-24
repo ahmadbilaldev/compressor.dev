@@ -283,7 +283,8 @@ Making this also a linear function **An + B** and time is **O(n)**.
 
 Our finalEncode function uses lzw and then huffman algorithm for encoding. Hence the running time can be written as T(n) such that
 
-```T(n) = max(C1,C2)```
+```T(n) = max(C1,C2)``` 
+
 where C1 is the cost of lzwEncode and C2 is the cost of huffmanEncode.
 
 #### Best Case
@@ -299,6 +300,7 @@ For worst case, the cost of huffmanEncode C2 is O(nlogn) while lzwEncode is O(n)
 Our finalEncode function uses lzw and then huffman algorithm for encoding. Hence the running time can be written as T(n) such that
 
 ```T(n) = max(C1,C2)```
+
 where C1 is the cost of lzwDecode and C2 is the cost of huffmanDecode.
 
 #### Best Case
