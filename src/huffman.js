@@ -140,10 +140,7 @@ function outputEncodedString(codes, byteArray, zeroPadding) {
 	for (i = 0; i < byteArray.length; i++) {
 		finalEncodedArray[i + 5 + json.length] = byteArray[i];
 	}
-
-	const outFile = `encoded.txt`;
-	const outData = finalEncodedArray;
-	fs.writeFileSync(outFile, outData);
+	return finalEncodedArray;
 }
 
 /**
@@ -157,7 +154,14 @@ function huffmanEncode(inputString) {
 	huffmanCodes(rootNode, codes, '');
 	let zeroPadding = { count: 0 };
 	let byteArray = codesToByteArray(inputString, codes, zeroPadding);
-	outputEncodedString(codes, byteArray, zeroPadding);
+	let encodeObject = {
+		// TEST
+		codeObj: codes,
+		byteArr: byteArray,
+		zeroPad: zeroPadding,
+	};
+	// let finalEncodedString = outputEncodedString(codes, byteArray, zeroPadding);
+	return encodeObject;
 }
 
 /**
