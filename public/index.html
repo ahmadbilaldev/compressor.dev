@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+	<title>Huffman-LZW Compressor</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- Fonts and css styles -->
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/styles.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+
+	<!-- favicon -->
+	<link rel="icon" type="image/png" href="img/favicon.png">
+</head>
+
+<body>
+	<div class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+
+				<a class="navbar-brand" href="index.html">Huffman-LZW Compressor</a>
+			</div>
+
+			<!-- <div class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="index.html">Home</a></li>
+				</ul>
+			</div> -->
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="text-center">
+			<h2 style="padding-top:20px;">Compresses Files using Huffman and LZW</h2>
+		</br>
+			<p class="lead">
+				<div class="row">
+					<div class="col-xs-12" style="padding:0 0 20px 0;">
+						<a class="btn btn-success" id="huffman_download"><i class="fa fa-arrow-down"></i>&nbsp; Download encoded file</a> &nbsp;
+
+						<span class="btn btn-success fileinput-button" id="huffman_upload"><i class="fa fa-arrow-up"></i>&nbsp; Upload to encode
+							<input type="file"
+									id="huffman_encode_input"></span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12" style="padding:0 0 20px 0;">
+						<a class="btn btn-success" id="huffman_download"><i class="fa fa-arrow-down"></i>&nbsp; Download decoded file</a> &nbsp;
+
+						<span class="btn btn-success fileinput-button" id="huffman_upload"><i class="fa fa-arrow-up"></i>&nbsp; Upload to decode<form method="POST" action="/decode" enctype="multipart/form-data"><input type="file" id="huffman_upload_input"></form></span>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-xs-12 show_error"></div>
+				</div>
+
+				<div class="row" style="padding-bottom:50px;">
+					<div class="col-xs-12">
+						<h3 style="padding:20px 0 5px 0;">Compression Percentage</h3>
+
+						<div class="progress" id="huffman_compression" data-toggle="tooltip" data-placement="right" title="" data-original-title="0%">
+							<div class="progress-bar progress-bar-success" style="width:0%" id="huffman_compression_bar"></div>
+						</div>
+					</div>
+				</div>
+			</p>
+		</div>
+	</div>
+
+	<!-- libraries -->
+	<script src="scripts/jquery/dist/jquery.min.js"></script>
+	<script src="scripts/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="scripts/js-priority-queue/priority-queue.js"></script>
+
+	<!-- UI -->
+	<script src="js/index.js"></script>
+</body>
+</html>
