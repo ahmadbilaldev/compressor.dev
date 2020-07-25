@@ -35,6 +35,23 @@ app.post('/decode', function (req, res) {
 	let codingSchemeObject = req.body.obj;
 
 	let decoded = huff.huffmanDecode(encodedBits, codingSchemeObject);
-
 	res.send(decoded);
+});
+
+app.use(
+	bodyParser.urlencoded({
+		limit: '100mb',
+		extended: true,
+		parameterLimit: 50000,
+	})
+);
+
+// ENCODE
+
+app.post('/encode', function (req, res) {
+	let inputString = req.body.string;
+	console.log(inputString);
+	let encodedObj = huff.huffmanEncode(inputString);
+	console.log(encodedObj);
+	res.send(encodedObj);
 });
