@@ -165,53 +165,7 @@ function huffmanEncode(inputString) {
  * @param {*} fileName
  */
 
-function huffmanDecode(fileName) {
-	const fileData = fs.readFileSync(fileName);
-	let fileLength = fileData.length;
-
-	let fileString = fileData;
-	let byteString = new Uint8Array(fileLength);
-
-	for (i = 0; i < fileData.length; i++) {
-		byteString[i] = fileString[i];
-	}
-
-	let codingSchemeLength = byteArrayToInt(byteString.subarray(0, 4));
-	let zeroPadding = byteString[4]; // A count of zero padding applied.
-	// Array of char codes of coding scheme
-	let codingScheme = byteString.subarray(5, 5 + codingSchemeLength);
-
-	// extract coding scheme as a string
-	let codingSchemeString = '';
-	for (i = 0; i < codingSchemeLength; i++) {
-		codingSchemeString += String.fromCharCode(codingScheme[i]);
-	}
-
-	// Convert coding scheme string to json to help converting into object.
-	codingSchemeString = '{"' + codingSchemeString + '"}';
-	codingSchemeString = codingSchemeString.replace(/,/g, '","');
-	codingSchemeString = codingSchemeString.replace(/:/g, '":"');
-	codingSchemeString = codingSchemeString.replace('"",""', '","');
-	codingSchemeString = codingSchemeString.replace('"\\"', '"\\""');
-
-	// Now, convert json into object.
-	let codingSchemeObject = JSON.parse(codingSchemeString);
-
-	// store the actual encoded message after the coding scheme.
-	let encodedString = byteString.subarray(5 + codingSchemeLength);
-
-	// Convert to bits for decoding, padding left is required in JavaScript
-	let encodedBits = '';
-	for (i = 0; i < encodedString.length; i++) {
-		encodedBits += encodedString[i].toString(2).paddingLeft('00000000');
-	}
-
-	// Deletes the zero padding (we applied it while encoding to help convert into bits)
-	encodedBits = encodedBits.substring(0, encodedBits.length - zeroPadding);
-
-	// Swap the key and value of the object. Values become keys, keys become values.
-	codingSchemeObject = flipObject(codingSchemeObject);
-
+function huffmanDecode(encodedBits, codingSchemeObject) {
 	// Finally decode the string using the coding scheme object.
 	let decodedString = '';
 	let buffer = '';
@@ -223,15 +177,16 @@ function huffmanDecode(fileName) {
 			decodedString += codingSchemeObject[buffer];
 			buffer = '';
 		} else {
-			console.log('ERROR\n');
+			// console.log('ERROR\n');
 		}
 	}
+	console.log(decodedString);
 	return decodedString;
 }
-
 // ************ DEBUGGING **********
 
-// let inputString = 'aabbccccc';
+// let inputString =
+// 	"A Promise is a proxy for a value not necessarily known when the promise is created. It allows you to associate handlers with an asynchronous action's eventual success value or failure reason. This lets asynchronous methods return values like synchronous methods: instead of immediately returning the final value, the asynchronous method returns a promise to supply the value at some point in the future.";
 // let fr = getFrequencies(inputString);
 // let rootNode = buildHuffmanTree(fr);
 // let codes = {}; // object with key-value pairs.
@@ -241,5 +196,20 @@ function huffmanDecode(fileName) {
 // let byteArray = codesToByteArray(inputString, codes, zeroPadding);
 // outputEncodedString(codes, byteArray, zeroPadding);
 
-let file = 'encoded.txt';
-huffmanDecode(file);
+// let file = 'encoded.txt';
+// huffmanDecode(file);
+
+// Export the class and all the functions
+module.exports = HuffmanNode;
+module.exports = {
+	getFrequencies,
+	buildHuffmanTree,
+	huffmanCodes,
+	codesToByteArray,
+	intToByteArray,
+	byteArrayToInt,
+	huffmanDecode,
+	huffmanEncode,
+	flipObject,
+	outputEncodedString,
+};
