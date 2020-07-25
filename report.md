@@ -6,3 +6,6 @@ So there are two buttons for uploading one for uploading in the main interface a
 
 ### Download
 Similar to the upload buttons there are two download buttons in which one of them is used to output the compressed file based on the original file the user provided while the other button is used to provide the user with the decompressed file when it is provided with a compressed file.
+
+### Express Routing
+So to make all of the interfaces work we are using the express routing methods. So for each button we have defined some route which it follows from the user end to the server end to get the job done. For example we want to decode a file and for that purpose user will provide a file and then will use decode button after that it will follow the path defined for it. In that path after the file's data has been converted into string and decoded by backend function res.send method returns the decoded string from which it is converted into a file and then made ready for the users and similar goes for the encoding of some file but in that case routes will be different so that the file is compressed and made available at the user end for the user.
