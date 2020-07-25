@@ -1,2 +1,5 @@
-# UI
+## UI
 So, for ui we planned to use express.js but it was taking a lot of time than required so we took help of the native HTML to speed up the process. First, we were trying to send the whole file to node.js which we are using as our backend after receiving it from the user on front end but the file was getting distorted and node.js was not very efficient in dealing with file and therefore we used the JavaScript’s in built file reader function to convert the file into string and send it to the backend. We are also using JQuery and AJAX to send request to the server in order to do so. Therfore we are reducing the time for the input file to reach backend to provide a smooth and fast user experience.  Another problem raised in outputting the compressed file as node.js could only work on bytes at minimum level so we could not output in bits which is more efficient and necessary.
+
+### Uploads
+So there are two buttons for uploading one for uploading an uncompressed file (a regular file that is yet to be compressed) and one for compressed file. So in both cases we do not send the whole file to backend server instead we convert the file into string on the front end using the JS's in built file reader function and send it to the backend by making reuestes to server using JQuery and AJAX. After that backend handles the rest.
