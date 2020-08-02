@@ -1,11 +1,8 @@
 {
-	"name": "huffman-compressor",
-	"version": "1.0.0",
+	"name": "lzw-huffman",
+	"version": "0.0.1",
 	"description": "A web app for encoding and decoding using a modified Huffman Algorithm.",
-	"main": "huffman.js",
-	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
-	},
+	"main": "server.js",
 	"dependencies": {
 		"body-parser": "^1.19.0",
 		"bootstrap": "^4.5.0",
@@ -13,14 +10,10 @@
 		"jquery": "^3.5.1",
 		"js-priority-queue": "^0.1.5"
 	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/ahmadbilaldev/CS311S20PID03.git"
-	},
+	"repository": "ahmadbilaldev/CS311S20PID03",
 	"author": "Ahmad Bilal, Muhammad Faisal",
-	"license": "ISC",
-	"bugs": {
-		"url": "https://github.com/ahmadbilaldev/CS311S20PID03/issues"
-	},
-	"homepage": "https://github.com/ahmadbilaldev/CS311S20PID03#readme"
+	"license": "MIT",
+	"scripts": {
+		"start": "nodemon server.js"
+	}
 }
