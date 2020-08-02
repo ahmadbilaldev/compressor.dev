@@ -1,60 +1,53 @@
-function lzwEncoder(inputString) {
+function lzwEncode(inputString) {
 	let myDict = {};
 	let convertedData = (inputString + '').split(''); //converting string into array/each corrector separated
-	let encodedData = [];
+	let encodedArray = []; // Array containing the encoded codes
 	let currentChar;
 	let previousChar = convertedData[0];
 	let charCode = 256;
-	let k =0;
+	let k = 0;
 
-	for (let i = 1; i < convertedData.length; i++) 
-	{
+	// Populating the encoded array
+	for (let i = 1; i < convertedData.length; i++) {
 		currentChar = convertedData[i];
-		if (myDict[previousChar + currentChar] != null) 
-		{
-			//if that chararcter is found then next char is concatenated
+		if (myDict[previousChar + currentChar] != null) {
+			// If that chararcter is found then next char is concatenated
 			previousChar += currentChar;
-		} else 
-		{
-			if (previousChar.length > 1) encodedData[k] = (myDict[previousChar]);
-			else encodedData[k] = (previousChar.charCodeAt(0));
+		} else {
+			if (previousChar.length > 1) encodedArray[k] = myDict[previousChar];
+			else encodedArray[k] = previousChar.charCodeAt(0);
 			k++;
 			myDict[previousChar + currentChar] = charCode;
 			charCode++;
 			previousChar = currentChar;
 		}
 	}
-	// Adding last element in encoded string
-	if (previousChar.length > 1) encodedData[k] = (myDict[previousChar]);
-	else encodedData[k] = (previousChar.charCodeAt(0));
-	return encodedData;
+	// Adding last element in encoded array
+	if (previousChar.length > 1) encodedArray[k] = myDict[previousChar];
+	else encodedArray[k] = previousChar.charCodeAt(0); // Array completely populated
+
+	let encodedString = encodedArray.toString(); // Converting array to string for Huffman to work
+	return encodedString;
 }
 
-function lzw_decode(encodedString) {
+function lzwDecode(encodedString) {
 	let newDict = {};
-	convData = encodedString;
-	let currChar = convData[0];
+	let encodedArray = encodedString.split(',').map(Number); // Converting string to array for lzw to work
+	let currChar = encodedArray[0];
 	let prevSelectedChar = currChar;
-	let decodedString = [String.fromCharCode(currChar)]; //selecting the first element as output because 1st element is always less than 256
+	let decodedString = [String.fromCharCode(currChar)]; // Selecting the first element as output because 1st element is always less than 256
 	let charCode = 256;
 	let selectedChar;
 
-	for (let i = 1; i < convData.length; i++) 
-	{
-		let currCode = convData[i];
-		if (currCode < 256) 
-		{
-			selectedChar = String.fromCharCode(convData[i]);
-		} 
-		else 
-		{
+	for (let i = 1; i < encodedArray.length; i++) {
+		let currCode = encodedArray[i];
+		if (currCode < 256) {
+			selectedChar = String.fromCharCode(encodedArray[i]);
+		} else {
 			//if it is present
-			if (newDict[currCode] != null) 
-			{
-				selectedChar = (newDict[currCode]);
-			} 
-			else 
-			{
+			if (newDict[currCode] != null) {
+				selectedChar = newDict[currCode];
+			} else {
 				selectedChar = String.fromCharCode(prevSelectedChar) + String.fromCharCode(currChar); //if its not present then its always going to be last+current character
 			}
 		}
@@ -68,34 +61,19 @@ function lzw_decode(encodedString) {
 	return decodedString.join('');
 }
 
-/**
- * (#1) Initiliaze frequency object, keys are characters and their value is thier frequencies
- * Input: simple string
- * Output: Object like {a:2, b:3, v:5} which has characters and their respecctive frequencies
- */
-function getFrequencies(inputString) {
-	const freqObj = {};
-
-	for (let char of inputString) {
-		if (freqObj[char]) {
-			freqObj[char]++; // If character exixts, increment its frequency.
-		} else {
-			freqObj[char] = 1; // if character doesnt exist, add it with frequency 1.
-		}
-	}
-	return freqObj;
-}
+module.exports = {
+	lzwEncode,
+	lzwDecode,
+};
 
 // *********** DEBUGGING ***********
 
-let string = 'abcaababcbbcab';
-console.log('the main string is', string);
-let encoded = [1, 2, 3, 1];
-let newObj = getFrequencies(string);
-encodedStr = lzwEncoder(string);
-console.log('The encode string is', encodedStr);
-decodedStr = lzw_decode(encodedStr);
-console.log('The decoded string is', decodedStr);
-if (string == decodedStr) {
-	console.log('its working');
-}
+// let string = 'abcaaba,/:"bcbbcab';
+// console.log('Input String: \n', string);
+// encodedStr = lzwEncode(string);
+// console.log('Encoded string: \n', encodedStr);
+// decodedStr = lzwDecode(encodedStr);
+// console.log('Decoded string: \n', decodedStr);
+// if (string == decodedStr) {
+// 	console.log('its working');
+// }
