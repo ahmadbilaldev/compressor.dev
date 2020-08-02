@@ -5,61 +5,65 @@ function lzwEncoder(inputString) {
 	let currentChar;
 	let previousChar = convertedData[0];
 	let charCode = 256;
+	let k =0;
 
-	for (let i = 1; i < convertedData.length; i++) {
+	for (let i = 1; i < convertedData.length; i++) 
+	{
 		currentChar = convertedData[i];
-		if (myDict[previousChar + currentChar] != null) {
+		if (myDict[previousChar + currentChar] != null) 
+		{
 			//if that chararcter is found then next char is concatenated
 			previousChar += currentChar;
-		} else {
-			if (previousChar.length > 1) encodedData.push(myDict[previousChar]);
-			else encodedData.push(previousChar.charCodeAt(0));
-
+		} else 
+		{
+			if (previousChar.length > 1) encodedData[k] = (myDict[previousChar]);
+			else encodedData[k] = (previousChar.charCodeAt(0));
+			k++;
 			myDict[previousChar + currentChar] = charCode;
 			charCode++;
 			previousChar = currentChar;
 		}
 	}
 	// Adding last element in encoded string
-	if (previousChar.length > 1) encodedData.push(myDict[previousChar]);
-	else encodedData.push(previousChar.charCodeAt(0));
-
-	/*
-    converting ascii charCode into symbols
-    */
-	for (let i = 0; i < encodedData.length; i++) {
-		encodedData[i] = String.fromCharCode(encodedData[i]);
-	}
-	return encodedData.join('');
+	if (previousChar.length > 1) encodedData[k] = (myDict[previousChar]);
+	else encodedData[k] = (previousChar.charCodeAt(0));
+	return encodedData;
 }
 
 function lzw_decode(encodedString) {
 	let newDict = {};
-	let convData = (encodedString + '').split('');
+	convData = encodedString;
 	let currChar = convData[0];
 	let prevSelectedChar = currChar;
-	let decodedString = [currChar]; //selecting the first element as output because 1st element is always less than 256
+	let decodedString = [String.fromCharCode(currChar)]; //selecting the first element as output because 1st element is always less than 256
 	let charCode = 256;
 	let selectedChar;
 
-	for (let i = 1; i < convData.length; i++) {
-		let currCode = convData[i].charCodeAt(0);
-		if (currCode < 256) {
-			selectedChar = convData[i];
-		} else {
+	for (let i = 1; i < convData.length; i++) 
+	{
+		let currCode = convData[i];
+		if (currCode < 256) 
+		{
+			selectedChar = String.fromCharCode(convData[i]);
+		} 
+		else 
+		{
 			//if it is present
-			if (newDict[currCode] != null) {
-				selectedChar = newDict[currCode];
-			} else {
-				selectedChar = prevSelectedChar + currChar; //if its not present then its always going to be last+current character
+			if (newDict[currCode] != null) 
+			{
+				selectedChar = (newDict[currCode]);
+			} 
+			else 
+			{
+				selectedChar = String.fromCharCode(prevSelectedChar) + String.fromCharCode(currChar); //if its not present then its always going to be last+current character
 			}
 		}
 
 		decodedString.push(selectedChar);
-		currChar = selectedChar.charAt(0);
-		newDict[charCode] = prevSelectedChar + currChar;
+		currChar = selectedChar.charCodeAt(0);
+		newDict[charCode] = String.fromCharCode(prevSelectedChar) + String.fromCharCode(currChar);
 		charCode++;
-		prevSelectedChar = selectedChar;
+		prevSelectedChar = selectedChar.charCodeAt(0);
 	}
 	return decodedString.join('');
 }
