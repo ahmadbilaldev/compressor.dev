@@ -11,70 +11,101 @@ $(document).ready(function () {
 	$('[data-toggle="tooltip"]').tooltip();
 });
 
-// // text input
-// $(document).ready(function () {
-// 	$('#huffman_input').keyup(function () {
-// 		// Get text
-// 		var input = $('#huffman_input').val();
-
-// 		// Call the interpret function
-// 		if (input != '') var result = interpret_text(input);
-
-// 		// Update GUI
-// 		update_gui_elements(result);
-// 	});
-// });
-
-function outputEncodedString(codes, byteArray, zeroPadding) {
-	let json = JSON.stringify(codes);
-	json = json.replace(/"/g, '');
-	json = json.substring(1, json.length - 1);
-
-	// Populate final encoded bytes array
-	let finalEncodedArray = new Uint8Array(5 + json.length + byteArray.length);
-	intToByteArray(json.length, finalEncodedArray);
-	finalEncodedArray[4] = zeroPadding;
-
-	for (i = 0; i < json.length; i++) {
-		finalEncodedArray[i + 5] = json.charCodeAt(i); // coding scheme
-	}
-
-	for (i = 0; i < byteArray.length; i++) {
-		finalEncodedArray[i + 5 + json.length] = byteArray[i];
-	}
-	return finalEncodedArray;
-}
-
 // UPLOAD FILE TO ENCODE
 $(document).ready(function () {
 	$('#huffman_encode_input').change(function (e) {
 		var input = document.getElementById('huffman_encode_input');
 		var file = input.files[0];
 		loadFileToEncode(file, function (inputString) {
+			// Sending POST request in the callback of loadFileToEncode
 			$.ajax({
 				url: '/encode',
 				type: 'POST',
+				dataType: 'json',
 				data: {
 					string: inputString,
 				},
 				success: function (data) {
-					console.log('succes' + data);
-					let str = outputEncodedString(data.codeObj, data.byteArr, data.zeroPad);
-					console.log(str);
-					update_huffman_download(str, 'encodedString');
+					console.log('succes encode');
+					let byteArray = codesToByteArray(data.inpString, data.codeObj, data.zeroPad);
+					console.log(data.zeroPad);
+					outputEncodedString(data.codeObj, byteArray, data.zeroPad);
 				},
 			});
 		});
 	});
 });
 
+function loadFileToEncode(file, callBack) {
+	let reader = new FileReader();
+	reader.onload = function (e) {
+		let str = e.target.result;
+		callBack(str);
+	};
+	reader.readAsBinaryString(file);
+}
+
+// Function for converting string(coding scheme) to bits
+function codesToByteArray(inputString, codes, zeroPadding) {
+	let encodedString = '';
+
+	// Read input text and encode it using the codes. Store it in the encodedString.
+	for (let i = 0; i < inputString.length; i++) {
+		encodedString += codes[inputString.charAt(i)];
+	}
+
+	// Initialize an array of bytes.
+	let byteArray = new Uint8Array(encodedString.length / 8 + (encodedString.length % 8 != 0 ? 1 : 0));
+
+	// Take one byte of the encodedString at each instance, and put it into byte array as bits.
+	for (let i = 0; i < encodedString.length; i += 8) {
+		let oneByte = encodedString.substring(i, i + 8);
+
+		if (oneByte.length < 8) {
+			for (let j = oneByte.length; j < 8; j++) {
+				oneByte += '0';
+				zeroPadding.count++;
+			}
+		}
+		let byte = parseInt(oneByte, 2);
+		byteArray[i / 8] = byte;
+	}
+	return byteArray;
+}
+
+// Final function for creating an output string of encoded bits
+function outputEncodedString(codes, byteArray, zeroPadding) {
+	let json = JSON.stringify(codes);
+	// byteArray = JSON.stringify(byteArray);
+	json = json.replace(/"/g, '');
+	json = json.substring(1, json.length - 1);
+	// Populate final encoded bytes array
+	let finalEncodedArray = new Uint8Array(5 + json.length + byteArray.length);
+	intToByteArray(json.length, finalEncodedArray);
+	finalEncodedArray[4] = zeroPadding;
+
+	for (let i = 0; i < json.length; i++) {
+		finalEncodedArray[i + 5] = json.charCodeAt(i); // coding scheme
+	}
+
+	for (let i = 0; i < byteArray.length; i++) {
+		finalEncodedArray[i + 5 + json.length] = byteArray[i];
+	}
+	console.log(finalEncodedArray);
+
+	var blob = new Blob([finalEncodedArray], { type: 'application/octet-stream' });
+	var url = window.URL.createObjectURL(blob);
+	$('#huffman_download').attr('href', url);
+	$('#huffman_download').attr('download', 'encoded');
+}
+
 // UPLOAD FILE TO DECODE
 $(document).ready(function () {
 	$('#huffman_upload_input').change(function (e) {
 		var input = document.getElementById('huffman_upload_input');
 		var file = input.files[0];
-		loadEncodedFile(file, function (encodedBits, codingSchemeObject) {
-			console.log(encodedBits);
+		loadFileToDecode(file, function (encodedBits, codingSchemeObject) {
+			// Callaback function
 			console.log(codingSchemeObject);
 			$.ajax({
 				url: '/decode',
@@ -91,23 +122,14 @@ $(document).ready(function () {
 	});
 });
 
-function loadFileToEncode(file, callBack) {
-	let reader = new FileReader();
-	reader.onload = function (e) {
-		let str = e.target.result;
-		callBack(str);
-	};
-	reader.readAsBinaryString(file);
-}
-
 // Handle reading the file's contents
-function loadEncodedFile(file, callBack) {
+function loadFileToDecode(file, callBack) {
 	var reader = new FileReader();
 
 	reader.onload = function (e) {
 		// Get all the bytes from the file
 		let byteString = new Uint8Array(e.target.result.length);
-		for (i = 0; i < e.target.result.length; i++) {
+		for (let i = 0; i < e.target.result.length; i++) {
 			byteString[i] = e.target.result.charCodeAt(i);
 		}
 		// *******************
@@ -157,17 +179,7 @@ function loadEncodedFile(file, callBack) {
 
 		codingSchemeObject = flipObject(codingSchemeObject);
 
-		// TESTING
-		let result = interpret_byte_array(byteString);
-
 		callBack(encodedBits, codingSchemeObject);
-		// Verify
-		if (result === false) {
-			$('.show_error').html(
-				"<div class='alert alert-dismissible alert-danger'><button type='button' class='close' data-dismiss='alert'>×</button><strong>Oh snap!</strong> It looks like the file you uploaded is either too large or incorrectly formatted.</div>"
-			);
-			return;
-		}
 	};
 	reader.readAsBinaryString(file);
 }
@@ -177,7 +189,6 @@ function update_huffman_download(file_output, type) {
 	if (type === '') {
 		type = 'test';
 	}
-	console.log('DEBUG DOWNLOAD' + file_output);
 	var blob = new Blob([file_output], { type: 'application/octet-stream' });
 	var url = window.URL.createObjectURL(blob);
 	$('#huffman_download').attr('href', url);
@@ -204,4 +215,21 @@ function update_huffman_compression(percentage) {
 	}
 
 	$('#huffman_compression').attr('data-original-title', Math.round(percentage, 1) + '%');
+}
+
+function intToByteArray(int, byteArray) {
+	for (let index = 0; index < byteArray.length; index++) {
+		let byte = int & 0xff;
+		byteArray[index] = byte;
+		int = (int - byte) / 256;
+	}
+}
+
+function byteArrayToInt(byteArray) {
+	let intResult = 0;
+
+	for (let i = byteArray.length - 1; i >= 0; i--) {
+		intResult = intResult * 256 + byteArray[i];
+	}
+	return intResult;
 }
