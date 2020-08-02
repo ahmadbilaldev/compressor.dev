@@ -10,10 +10,10 @@
 		"jquery": "^3.5.1",
 		"js-priority-queue": "^0.1.5"
 	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/ahmadbilaldev/CS311S20PID03.git"
-	},
+	"repository": "ahmadbilaldev/CS311S20PID03",
 	"author": "Ahmad Bilal, Muhammad Faisal",
 	"license": "MIT",
+	"scripts": {
+		"start": "nodemon server.js"
+	}
 }
