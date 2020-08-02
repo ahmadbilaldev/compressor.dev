@@ -153,13 +153,13 @@ function huffmanEncode(inputString) {
 	let codes = {}; // object with key-value pairs.
 	huffmanCodes(rootNode, codes, '');
 	let zeroPadding = { count: 0 };
-	let byteArray = codesToByteArray(inputString, codes, zeroPadding);
 	let encodeObject = {
 		// TEST
 		codeObj: codes,
-		byteArr: byteArray,
+		inpString: inputString,
 		zeroPad: zeroPadding,
 	};
+	// let byteArray = codesToByteArray(inputString, codes, zeroPadding);
 	// let finalEncodedString = outputEncodedString(codes, byteArray, zeroPadding);
 	return encodeObject;
 }
