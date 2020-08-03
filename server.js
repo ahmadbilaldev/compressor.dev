@@ -11,9 +11,6 @@ const PORT = process.env.port || 3000;
 // Make ./public the web root.
 app.use(express.static('public'));
 
-// Provide libraries through node modules.
-// app.use('/scripts', express.static(`${__dirname}/node_modules/`));
-
 // Start
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}....`));
 
@@ -61,15 +58,4 @@ app.post('/encode', function (req, res) {
 	console.log('encoding end');
 	let encodedObject = huff.huffmanEncode(lzwEncoded);
 	res.json(encodedObject);
-	// let finalEncodedArray = huff.huffmanEncode(inputString);
-	// console.log(finalEncodedArray);
-	// const outFile = `encodedTest.txt`;
-	// const outData = finalEncodedArray;
-	// fs.writeFile(outFile, outData, function (err) {
-	// 	if (err) {
-	// 		console.log(error);
-	// 	}
-	// });
-	// console.log(`${__dirname}/encodedTest.txt`);
-	// res.download(`${__dirname}/encodedTest.txt`);
 });

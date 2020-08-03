@@ -5,7 +5,6 @@ function lzwEncode(inputString) {
 	let currentChar;
 	let previousChar = convertedData[0];
 	let charCode = 256;
-	let k = 0;
 
 	// Populating the encoded array
 	for (let i = 1; i < convertedData.length; i++) {
@@ -14,17 +13,16 @@ function lzwEncode(inputString) {
 			// If that chararcter is found then next char is concatenated
 			previousChar += currentChar;
 		} else {
-			if (previousChar.length > 1) encodedArray[k] = myDict[previousChar];
-			else encodedArray[k] = previousChar.charCodeAt(0);
-			k++;
+			if (previousChar.length > 1) encodedArray.push(myDict[previousChar]);
+			else encodedArray.push(previousChar.charCodeAt(0));
 			myDict[previousChar + currentChar] = charCode;
 			charCode++;
 			previousChar = currentChar;
 		}
 	}
 	// Adding last element in encoded array
-	if (previousChar.length > 1) encodedArray[k] = myDict[previousChar];
-	else encodedArray[k] = previousChar.charCodeAt(0); // Array completely populated
+	if (previousChar.length > 1) encodedArray.push(myDict[previousChar]);
+	else encodedArray.push(previousChar.charCodeAt(0)); // Array completely populated
 
 	let encodedString = encodedArray.toString(); // Converting array to string for Huffman to work
 	return encodedString;
@@ -33,9 +31,9 @@ function lzwEncode(inputString) {
 function lzwDecode(encodedString) {
 	let newDict = {};
 	let encodedArray = encodedString.split(',').map(Number); // Converting string to array for lzw to work
-	let currChar = encodedArray[0];
+	let currChar = String.fromCharCode(encodedArray[0]);
 	let prevSelectedChar = currChar;
-	let decodedString = [String.fromCharCode(currChar)]; // Selecting the first element as output because 1st element is always less than 256
+	let decodedString = [currChar]; // Selecting the first element as output because 1st element is always less than 256
 	let charCode = 256;
 	let selectedChar;
 
@@ -44,21 +42,22 @@ function lzwDecode(encodedString) {
 		if (currCode < 256) {
 			selectedChar = String.fromCharCode(encodedArray[i]);
 		} else {
-			//if it is present
+			// if it is present
 			if (newDict[currCode] != null) {
 				selectedChar = newDict[currCode];
 			} else {
-				selectedChar = String.fromCharCode(prevSelectedChar) + String.fromCharCode(currChar); //if its not present then its always going to be last+current character
+				selectedChar = prevSelectedChar + currChar; // if its not present then its always going to be last+current character
 			}
 		}
 
-		decodedString.push(selectedChar);
-		currChar = selectedChar.charCodeAt(0);
-		newDict[charCode] = String.fromCharCode(prevSelectedChar) + String.fromCharCode(currChar);
+		decodedString += selectedChar;
+		currChar = selectedChar[0];
+		newDict[charCode] = prevSelectedChar + currChar;
 		charCode++;
-		prevSelectedChar = selectedChar.charCodeAt(0);
+		prevSelectedChar = selectedChar;
 	}
-	return decodedString.join('');
+	console.log(decodedString);
+	return decodedString;
 }
 
 module.exports = {
@@ -68,12 +67,13 @@ module.exports = {
 
 // *********** DEBUGGING ***********
 
-// let string = 'abcaaba,/:"bcbbcab';
-// console.log('Input String: \n', string);
+// let string =
+// 	"Data compression is of interest in business data processing, both because of the cost savings it offers and because of the large volume of data manipulated in many business applications. A method and system for transmitting a digital image (i.e., an array of pixels) from a digital data source to a digital data receiver. More the size of the data be smaller, it provides better transmission speed and saves time. In this communication we always want to transmit data efficiently and noise free. Both the LZW and Huffman data compression methods are lossless in manner. These methods or some versions of them are very common in use of compressing different types of data. Even though on average Huffman gives better compression results, it determines the case in which the LZW performs best and when the compression efficiency gap between the LZW algorithm and its Huffman counterpart is the largest. In the case of Hybrid compression it gives better compression ratio than in single compression. So, at first I wanted to compress original data by Huffman Encoding Technique then by the LZW Encoding Technique .But it did not give better compression ratio than in single LZW compression. At that time I have found that if we compress the data by Huffman first and then by LZW all the cases it gives better compression ratio. Then it named as 'Data compression using Huffman based LZW Encoding'. Its compression ratio most of the cases above 2.55 and in some cases it becomes above 3.25 or more. It will provide cheap, reliable and efficient system for data compression in digital communication system.";
+// console.log('Input String:\n', string);
 // encodedStr = lzwEncode(string);
-// console.log('Encoded string: \n', encodedStr);
+// console.log('Encoded string:\n', encodedStr);
 // decodedStr = lzwDecode(encodedStr);
-// console.log('Decoded string: \n', decodedStr);
+// console.log('Decoded string:\n', decodedStr);
 // if (string == decodedStr) {
 // 	console.log('its working');
 // }
