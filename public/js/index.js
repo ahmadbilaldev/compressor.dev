@@ -28,7 +28,6 @@ $(document).ready(function () {
 				success: function (data) {
 					console.log('succes encode');
 					let byteArray = codesToByteArray(data.inpString, data.codeObj, data.zeroPad);
-					console.log(data.zeroPad);
 					outputEncodedString(data.codeObj, byteArray, data.zeroPad);
 				},
 			});
@@ -82,7 +81,7 @@ function outputEncodedString(codes, byteArray, zeroPadding) {
 	// Populate final encoded bytes array
 	let finalEncodedArray = new Uint8Array(5 + json.length + byteArray.length);
 	intToByteArray(json.length, finalEncodedArray);
-	finalEncodedArray[4] = zeroPadding;
+	finalEncodedArray[4] = zeroPadding.count;
 
 	for (let i = 0; i < json.length; i++) {
 		finalEncodedArray[i + 5] = json.charCodeAt(i); // coding scheme
@@ -91,8 +90,8 @@ function outputEncodedString(codes, byteArray, zeroPadding) {
 	for (let i = 0; i < byteArray.length; i++) {
 		finalEncodedArray[i + 5 + json.length] = byteArray[i];
 	}
-	console.log(finalEncodedArray);
 
+	// Provide the encoded file for user to download
 	var blob = new Blob([finalEncodedArray], { type: 'application/octet-stream' });
 	var url = window.URL.createObjectURL(blob);
 	$('#huffman_download').attr('href', url);
