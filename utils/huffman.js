@@ -159,8 +159,6 @@ function huffmanEncode(inputString) {
 		inpString: inputString,
 		zeroPad: zeroPadding,
 	};
-	// let byteArray = codesToByteArray(inputString, codes, zeroPadding);
-	// let finalEncodedString = outputEncodedString(codes, byteArray, zeroPadding);
 	return encodeObject;
 }
 
@@ -184,28 +182,14 @@ function huffmanDecode(encodedBits, codingSchemeObject) {
 			// console.log('ERROR\n');
 		}
 	}
-	console.log(decodedString);
+	// console.log(decodedString);
 	return decodedString;
 }
-// ************ DEBUGGING **********
-
-// let inputString =
-// 	"A Promise is a proxy for a value not necessarily known when the promise is created. It allows you to associate handlers with an asynchronous action's eventual success value or failure reason. This lets asynchronous methods return values like synchronous methods: instead of immediately returning the final value, the asynchronous method returns a promise to supply the value at some point in the future.";
-// let fr = getFrequencies(inputString);
-// let rootNode = buildHuffmanTree(fr);
-// let codes = {}; // object with key-value pairs.
-// huffmanCodes(rootNode, codes, '');
-// console.log(codes);
-// let zeroPadding = { count: 0 };
-// let byteArray = codesToByteArray(inputString, codes, zeroPadding);
-// outputEncodedString(codes, byteArray, zeroPadding);
-
-// let file = 'encoded.txt';
-// huffmanDecode(file);
 
 // Export the class and all the functions
-module.exports = HuffmanNode;
+module.exports = HuffmanNode; // Exporting huffmanNode Class
 module.exports = {
+	// Exporting fucntions
 	getFrequencies,
 	buildHuffmanTree,
 	huffmanCodes,
@@ -217,3 +201,15 @@ module.exports = {
 	flipObject,
 	outputEncodedString,
 };
+
+// ************ DEBUGGING **********
+// let inputString =
+// 	"A Promise is a proxy for a value not necessarily known when the promise is created. It allows you to associate handlers with an asynchronous action's eventual success value or failure reason. This lets asynchronous methods return values like synchronous methods: instead of immediately returning the final value, the asynchronous method returns a promise to supply the value at some point in the future.";
+// let fr = getFrequencies(inputString);
+// let rootNode = buildHuffmanTree(fr);
+// let codes = {}; // object with key-value pairs.
+// huffmanCodes(rootNode, codes, '');
+// console.log(codes);
+// let zeroPadding = { count: 0 };
+// let byteArray = codesToByteArray(inputString, codes, zeroPadding);
+// outputEncodedString(codes, byteArray, zeroPadding);
