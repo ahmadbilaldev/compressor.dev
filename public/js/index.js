@@ -1,6 +1,9 @@
 // Global variables
 var timeout_to_show;
-
+let stats = {
+	inputSize: 0,
+	compressedSize: 0,
+};
 // Padding function
 String.prototype.paddingLeft = function (paddingValue) {
 	return String(paddingValue + this).slice(-paddingValue.length);
@@ -17,6 +20,8 @@ $(document).ready(function () {
 		var input = document.getElementById('huffman_encode_input');
 		var file = input.files[0];
 		loadFileToEncode(file, function (inputString) {
+			stats.inputSize = inputString.length;
+			console.log('INPUT: ', stats.inputSize);
 			// Sending POST request in the callback of loadFileToEncode
 			$.ajax({
 				url: '/encode',
@@ -29,6 +34,7 @@ $(document).ready(function () {
 					console.log('succes encode');
 					let byteArray = codesToByteArray(data.inpString, data.codeObj, data.zeroPad);
 					outputEncodedString(data.codeObj, byteArray, data.zeroPad);
+					update_huffman_compression();
 				},
 			});
 		});
@@ -38,7 +44,7 @@ $(document).ready(function () {
 function loadFileToEncode(file, callBack) {
 	let reader = new FileReader();
 	reader.onload = function (e) {
-		let str = e.target.result;
+		let str = e.target.result; // Input all the data into str
 		callBack(str);
 	};
 	reader.readAsBinaryString(file);
@@ -90,12 +96,23 @@ function outputEncodedString(codes, byteArray, zeroPadding) {
 	for (let i = 0; i < byteArray.length; i++) {
 		finalEncodedArray[i + 5 + json.length] = byteArray[i];
 	}
+	stats.compressedSize = finalEncodedArray.length;
+	console.log(stats.compressedSize);
 
 	// Provide the encoded file for user to download
 	var blob = new Blob([finalEncodedArray], { type: 'application/octet-stream' });
 	var url = window.URL.createObjectURL(blob);
-	$('#huffman_download').attr('href', url);
-	$('#huffman_download').attr('download', 'encoded');
+	// Trigger the download of encoded file automatically
+	let a = document.createElement('a');
+	a.download = 'encoded.txt';
+	a.href = url;
+	document.body.appendChild(a);
+	a.click();
+	document.body.removeChild(a);
+	window.URL.revokeObjectURL(url);
+
+	// $('#huffman_download').attr('href', url);
+	// $('#huffman_download').attr('download', 'encoded');
 }
 
 // UPLOAD FILE TO DECODE
@@ -103,6 +120,7 @@ $(document).ready(function () {
 	$('#huffman_upload_input').change(function (e) {
 		var input = document.getElementById('huffman_upload_input');
 		var file = input.files[0];
+		// Load input file, process the bits and send to server
 		loadFileToDecode(file, function (encodedBits, codingSchemeObject) {
 			// Callaback function
 			console.log(codingSchemeObject);
@@ -131,19 +149,16 @@ function loadFileToDecode(file, callBack) {
 		for (let i = 0; i < e.target.result.length; i++) {
 			byteString[i] = e.target.result.charCodeAt(i);
 		}
-		// *******************
 		// Call the interpret function
 		let codingSchemeLength = byteArrayToInt(byteString.subarray(0, 4));
 		let zeroPadding = byteString[4]; // A count of zero padding applied.
 		// Array of char codes of coding scheme
 		let codingScheme = byteString.subarray(5, 5 + codingSchemeLength);
-
 		// extract coding scheme as a string
 		let codingSchemeString = '';
 		for (i = 0; i < codingSchemeLength; i++) {
 			codingSchemeString += String.fromCharCode(codingScheme[i]);
 		}
-
 		// Convert coding scheme string to json to help converting into object.
 		codingSchemeString = '{"' + codingSchemeString + '"}';
 		codingSchemeString = codingSchemeString.replace(/,/g, '","');
@@ -175,9 +190,7 @@ function loadFileToDecode(file, callBack) {
 			}
 			return flippedObj;
 		}
-
 		codingSchemeObject = flipObject(codingSchemeObject);
-
 		callBack(encodedBits, codingSchemeObject);
 	};
 	reader.readAsBinaryString(file);
@@ -185,17 +198,24 @@ function loadFileToDecode(file, callBack) {
 
 // Update the download button
 function update_huffman_download(file_output, type) {
-	if (type === '') {
-		type = 'test';
-	}
 	var blob = new Blob([file_output], { type: 'application/octet-stream' });
 	var url = window.URL.createObjectURL(blob);
-	$('#huffman_download').attr('href', url);
-	$('#huffman_download').attr('download', type);
+	// Trigger the download of encoded file automatically
+	let a = document.createElement('a');
+	a.download = 'decoded.txt';
+	a.href = url;
+	document.body.appendChild(a);
+	a.click();
+	document.body.removeChild(a);
+	window.URL.revokeObjectURL(url);
+	// $('#huffman_download').attr('href', url);
+	// $('#huffman_download').attr('download', type);
 }
 
 // Update compression percentage meter
-function update_huffman_compression(percentage) {
+function update_huffman_compression() {
+	let percentage = (1 - stats.compressedSize / stats.inputSize) * 100;
+
 	// Handle undefined
 	if (percentage === undefined) {
 		$('#huffman_compression_bar').css('width', '0%');
@@ -213,7 +233,7 @@ function update_huffman_compression(percentage) {
 		$('#huffman_compression_bar').removeClass('progress-bar-danger');
 	}
 
-	$('#huffman_compression').attr('data-original-title', Math.round(percentage, 1) + '%');
+	$('#huffman_compression').attr('title', Math.round(percentage, 1) + '%');
 }
 
 function intToByteArray(int, byteArray) {
