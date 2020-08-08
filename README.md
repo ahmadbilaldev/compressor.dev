@@ -1,18 +1,39 @@
 # Huffman Coding App
 
-A web app for encoding and decoding using a modified Huffman Algorithm.
+An efficient and fast Compressor and Decopressor based on LZW + Huffamn algorithm. 
 
-## Decision of Algorithm
+## How To Install 
 
-For our project, that is File Compression Tool, we have decided to use a modified form of Huffman Coding Algorithm based on the greedy method. We researched to find the most suitable algorithm for our cause. Being one of the fastest algorithms for lossless compression, Huffman turned out to be our first choice. 
+To use this project, make sure you have node and npm installed. If not, then follow the relevant guides for your operating system. Once they are installed, open your terminal and follow these steps to install this project:
 
-It is to be noted that we tried other algorithms, specially Arithmetic Coding since we did not want to be confined to our book. But we found that while Arithmetic Coding produces a better compression percentage however it is slower than Huffman Coding. Hence we selected Huffman Coding Algorithm. The time complexity of which is O(nlogn) for unsorted and O(n) for sorted data.
+- First, open your terminal and clone this repository. 
+```sh
+git clone https://github.com/ahmadbilaldev/CS311S20PID03
+```
 
-To cater for the needs of our project, and in order to consider the Bonus aspect of our project, we will have to modify the existing Huffman algorithm. We will use a combination of **Lempel–Ziv–Welch (LZW)** and **Huffman Coding**. This will make the compression much better as compared to using the Huffman Coding algortihm(given in the book) alone. 
+- Navigate to the cloned repository: 
+```sh
+cd CS311S20PID03/
+```
 
-## Interface
+- Now, run the following command and wait until it is completed: 
+```sh
+npm install
+```
 
-Keeping in view the project needs, it needs a landing page where the user can simply upload files to encode/decode and download them.
+- Finally run the following command in the terminal: 
+```sh
+node server.js
+```
+
+- The server will be started. Go to your browser and open http://localhost:3000/
+
+## Details
+
+This project is mainly based on Huffman Compression Algorithm that is a greedy lossless compression algorithm. But to take it one step further we used a subroutine algorithm LZW (Lempel-Ziv-Welch) Compression algorithm. This algorithm is also a lossless compression algorithm that uses a greedy approach. Although Huffman algorithm would have been enough but to increase its efficiency and compression rate, we have used LZW as a secondary subroutine algorithm, So, when a user provides an input file, LZW is implemented on it firstly and then Huffman is used on it for compression.
+
+LZW basically reduces the duplication of data in input which means that by the time data reaches Huffman it has already been reduced to a certain size. Then Huffman runs on the compressed input given by LZW and gives each letter/segment of input a certain code that is not a prefix of any other code. And at the end, the output we receive is greatly smaller than input and the duo of these two algorithms is better than both of the algorithms if used separately.
+
 
 ## Pseudo Code
 
