@@ -72,8 +72,9 @@ function codesToByteArray(inputString, codes, zeroPadding) {
 				zeroPadding.count++;
 			}
 		}
-		let byte = parseInt(oneByte, 2);
-		byteArray[i / 8] = byte;
+		// Store each code as a bit in the array
+		let bit = parseInt(oneByte, 2);
+		byteArray[i / 8] = bit;
 	}
 	return byteArray;
 }
@@ -117,8 +118,9 @@ function outputEncodedString(codes, byteArray, zeroPadding) {
 
 // UPLOAD FILE TO DECODE
 $(document).ready(function () {
-	$('#huffman_upload_input').change(function (e) {
-		var input = document.getElementById('huffman_upload_input');
+	$('#huffman_decode_input').change(function (e) {
+		console.log('TEST');
+		var input = document.getElementById('huffman_decode_input');
 		var file = input.files[0];
 		// Load input file, process the bits and send to server
 		loadFileToDecode(file, function (encodedBits, codingSchemeObject) {
