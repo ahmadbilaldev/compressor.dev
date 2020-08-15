@@ -2,7 +2,7 @@
         <img src="https://github.com/ahmadbilaldev/CS311S20PID03/blob/master/public/img/compressor.jpg" alt="compressor.dev" />
     <br>
     <br> 
- Fast and Efficient Compression and Decompression based on LZW + Huffamn algorithm. 
+ Fast and Efficient Compression and Decompression based on LZW + Huffman algorithm. 
 <br>
 </br>
 
