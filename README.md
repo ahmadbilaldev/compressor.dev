@@ -1,8 +1,13 @@
-# Huffman Coding App
+<h4 align="center">
+        <img src="https://github.com/ahmadbilaldev/CS311S20PID03/blob/master/public/img/compressor.jpg" alt="compressor.dev" />
+    <br>
+    <br> 
+ Fast and Efficient Compression and Decompression based on LZW + Huffamn algorithm. 
+<br>
+</br>
 
-An efficient and fast Compressor and Decopressor based on LZW + Huffamn algorithm. 
 
-## How To Install 
+## How To Use 
 
 To use this project, make sure you have node and npm installed. If not, then follow the relevant guides for your operating system. Once they are installed, open your terminal and follow these steps to install this project:
 
