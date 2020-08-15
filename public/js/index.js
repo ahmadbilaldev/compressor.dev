@@ -15,7 +15,7 @@ $(document).ready(function () {
 			stats.inputSize = inputString.length;
 			console.log(stats.inputSize);
 			if (stats.inputSize === 0) {
-				alert('ERROR: The uploaded file is empty.');
+				alert('ERROR: The file is empty.');
 				return;
 			}
 			// Sending POST request in the callback of loadFileToEncode
@@ -110,21 +110,20 @@ function outputEncodedString(codes, byteArray, zeroPadding) {
 	a.click();
 	document.body.removeChild(a);
 	window.URL.revokeObjectURL(url);
-
-	// $('#huffman_download').attr('href', url);
-	// $('#huffman_download').attr('download', 'encoded');
 }
 
 // UPLOAD FILE TO DECODE
 $(document).ready(function () {
 	$('#huffman_decode_input').change(function (e) {
-		console.log('TEST');
-		var input = document.getElementById('huffman_decode_input');
-		var file = input.files[0];
+		let input = document.getElementById('huffman_decode_input');
+		let file = input.files[0];
 		// Load input file, process the bits and send to server
 		loadFileToDecode(file, function (encodedBits, codingSchemeObject) {
-			// Callaback function
-			console.log(codingSchemeObject);
+			// Callback function
+			if (codingSchemeObject === undefined) {
+				alert('ERROR: File is empty.');
+				return;
+			}
 			$.ajax({
 				url: '/decode',
 				type: 'POST',
@@ -145,54 +144,51 @@ function loadFileToDecode(file, callBack) {
 	var reader = new FileReader();
 
 	reader.onload = function (e) {
-		// Get all the bytes from the file
-		let byteString = new Uint8Array(e.target.result.length);
-		for (let i = 0; i < e.target.result.length; i++) {
-			byteString[i] = e.target.result.charCodeAt(i);
-		}
-		// Call the interpret function
-		let codingSchemeLength = byteArrayToInt(byteString.subarray(0, 4));
-		let zeroPadding = byteString[4]; // A count of zero padding applied.
-		// Array of char codes of coding scheme
-		let codingScheme = byteString.subarray(5, 5 + codingSchemeLength);
-		// extract coding scheme as a string
-		let codingSchemeString = '';
-		for (i = 0; i < codingSchemeLength; i++) {
-			codingSchemeString += String.fromCharCode(codingScheme[i]);
-		}
-		// Convert coding scheme string to json to help converting into object.
-		codingSchemeString = '{"' + codingSchemeString + '"}';
-		codingSchemeString = codingSchemeString.replace(/,/g, '","');
-		codingSchemeString = codingSchemeString.replace(/:/g, '":"');
-		codingSchemeString = codingSchemeString.replace('"",""', '","');
-		codingSchemeString = codingSchemeString.replace('"\\"', '"\\""');
-
-		console.log(codingSchemeString);
-		// Now, convert json into object.
-		let codingSchemeObject = JSON.parse(codingSchemeString);
-
-		// store the actual encoded message after the coding scheme.
-		let encodedString = byteString.subarray(5 + codingSchemeLength);
-
-		// Convert to bits for decoding, padding left is required in JavaScript
-		let encodedBits = '';
-		for (i = 0; i < encodedString.length; i++) {
-			encodedBits += encodedString[i].toString(2).paddingLeft('00000000');
-		}
-
-		// Deletes the zero padding (we applied it while encoding to help convert into bits)
-		encodedBits = encodedBits.substring(0, encodedBits.length - zeroPadding);
-
-		// Swap the key and value of the object. Values become keys, keys become values.
-		function flipObject(obj) {
-			let flippedObj = {};
-			for (let key in obj) {
-				flippedObj[obj[key]] = key;
+		// if file is not empty
+		if (e.target.result.length > 0) {
+			// Get all the bytes from the file
+			let byteString = new Uint8Array(e.target.result.length);
+			for (let i = 0; i < e.target.result.length; i++) {
+				byteString[i] = e.target.result.charCodeAt(i);
 			}
-			return flippedObj;
+			// Call the interpret function
+			let codingSchemeLength = byteArrayToInt(byteString.subarray(0, 4));
+			let zeroPadding = byteString[4]; // A count of zero padding applied.
+			// Array of char codes of coding scheme
+			let codingScheme = byteString.subarray(5, 5 + codingSchemeLength);
+			// extract coding scheme as a string
+			let codingSchemeString = '';
+			for (i = 0; i < codingSchemeLength; i++) {
+				codingSchemeString += String.fromCharCode(codingScheme[i]);
+			}
+			// Convert coding scheme string to json to help converting into object.
+			codingSchemeString = '{"' + codingSchemeString + '"}';
+			codingSchemeString = codingSchemeString.replace(/,/g, '","');
+			codingSchemeString = codingSchemeString.replace(/:/g, '":"');
+			codingSchemeString = codingSchemeString.replace('"",""', '","');
+			codingSchemeString = codingSchemeString.replace('"\\"', '"\\""');
+
+			console.log(codingSchemeString);
+			// Now, convert json into object.
+			let codingSchemeObject = JSON.parse(codingSchemeString);
+
+			// store the actual encoded message after the coding scheme.
+			let encodedString = byteString.subarray(5 + codingSchemeLength);
+
+			// Convert to bits for decoding, padding left is required in JavaScript
+			let encodedBits = '';
+			for (i = 0; i < encodedString.length; i++) {
+				encodedBits += encodedString[i].toString(2).paddingLeft('00000000');
+			}
+			// Deletes the zero padding (we applied it while encoding to help convert into bits)
+			encodedBits = encodedBits.substring(0, encodedBits.length - zeroPadding);
+			codingSchemeObject = flipObject(codingSchemeObject);
+			// Call callback function
+			callBack(encodedBits, codingSchemeObject);
+		} else {
+			// If file is empty send undefined to callback
+			callBack(undefined, undefined);
 		}
-		codingSchemeObject = flipObject(codingSchemeObject);
-		callBack(encodedBits, codingSchemeObject);
 	};
 	reader.readAsBinaryString(file);
 }
@@ -211,7 +207,7 @@ function update_huffman_download(file_output, type) {
 	window.URL.revokeObjectURL(url);
 }
 
-// Update compression percentage on the front end
+// Update Compression stats
 function update_compression_stats() {
 	// Sizes
 	let sizeUnit = 'B';
@@ -236,7 +232,6 @@ function update_compression_stats() {
 			sizeUnit +
 			'</strong>'
 	);
-
 	// Percentage
 	let percentage = (1 - stats.compressedSize / stats.inputSize) * 100;
 	percentage = Number.parseFloat(percentage).toFixed(1); // set precision to one decimal
@@ -251,6 +246,15 @@ function update_compression_stats() {
 String.prototype.paddingLeft = function (paddingValue) {
 	return String(paddingValue + this).slice(-paddingValue.length);
 };
+
+// Swap the key and value of the object. Values become keys, keys become values.
+function flipObject(obj) {
+	let flippedObj = {};
+	for (let key in obj) {
+		flippedObj[obj[key]] = key;
+	}
+	return flippedObj;
+}
 
 function intToByteArray(int, byteArray) {
 	for (let index = 0; index < byteArray.length; index++) {
