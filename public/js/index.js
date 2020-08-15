@@ -13,6 +13,11 @@ $(document).ready(function () {
 		var file = input.files[0];
 		loadFileToEncode(file, function (inputString) {
 			stats.inputSize = inputString.length;
+			console.log(stats.inputSize);
+			if (stats.inputSize === 0) {
+				alert('ERROR: The uploaded file is empty.');
+				return;
+			}
 			// Sending POST request in the callback of loadFileToEncode
 			$.ajax({
 				url: '/encode',
