@@ -43,18 +43,6 @@ body {
 	margin-top: 5rem;
 }
 
-/* #huffman_upload {
-	display: inline-block;
-	font-family: 'Montserrat', 'Trebuchet MS', Helvetica, sans-serif;
-	-webkit-font-smoothing: antialiased;
-	position: relative;
-	padding: 0.8em 1.4em;
-	padding-right: 4.7em;
-	border: none;
-	color: white;
-	transition: 0.2s;
-} */
-
 html,
 body {
 	height: 100%;
@@ -95,14 +83,12 @@ ul.actions {
 	text-align: center;
 }
 
-ul.actions li {
-}
-
 p {
 	line-height: 180%;
 }
 
 strong {
+	color: #f95540;
 }
 
 a {
@@ -207,22 +193,6 @@ ul.contact li a:before {
 	color: #ffffff;
 }
 
-ul.contact li a.icon-twitter:before {
-	background: #2daae4;
-}
-ul.contact li a.icon-facebook:before {
-	background: #39599f;
-}
-ul.contact li a.icon-dribbble:before {
-	background: #c4376b;
-}
-ul.contact li a.icon-tumblr:before {
-	background: #31516a;
-}
-ul.contact li a.icon-rss:before {
-	background: #f2600b;
-}
-
 /*********************************************************************************/
 /* Button Style                                                                  */
 /*********************************************************************************/
@@ -266,8 +236,9 @@ ul.contact li a.icon-rss:before {
 }
 
 .title .byline {
-	font-size: 1.4em;
-	color: #000000;
+	font-size: 1.3em;
+	color: rgba(0, 0, 0, 0.6);
+	text-transform: uppercase;
 }
 
 /*********************************************************************************/
@@ -411,9 +382,6 @@ ul.contact li a.icon-rss:before {
 	color: #fff;
 }
 
-#menu .icon {
-}
-
 /*********************************************************************************/
 /* Banner                                                                        */
 /*********************************************************************************/
@@ -438,6 +406,7 @@ ul.contact li a.icon-rss:before {
 
 #banner .title .byline {
 	color: rgba(0, 0, 0, 0.6);
+	font-size: 1.4em;
 }
 
 #banner .button {
@@ -458,27 +427,6 @@ ul.contact li a.icon-rss:before {
 	margin-top: 2em;
 	display: inline-block;
 	text-align: center;
-}
-
-/*********************************************************************************/
-/* Content                                                                       */
-/*********************************************************************************/
-
-#content {
-}
-
-/*********************************************************************************/
-/* Sidebar                                                                       */
-/*********************************************************************************/
-
-#sidebar {
-}
-
-/*********************************************************************************/
-/* Footer                                                                        */
-/*********************************************************************************/
-
-#footer {
 }
 
 /*********************************************************************************/
@@ -506,45 +454,13 @@ ul.contact li a.icon-rss:before {
 /* Featured                                                                      */
 /*********************************************************************************/
 
-#featured {
-	overflow: hidden;
-	padding: 5em 0em;
-	background: #009e2d;
-	color: rgba(255, 255, 255, 0.8);
-	text-align: center;
-}
-
-#featured a {
-	color: rgba(255, 255, 255, 1);
-}
-
-#featured .button {
-	background: #fff;
-	margin-top: 3em;
-	font-size: 1em;
-	color: #009e2d;
-}
-
-#featured .title {
-}
-
-#featured .title h2 {
-	color: #fff;
-}
-
-#featured .title .byline {
-	color: rgba(3, 3, 3, 0.6);
-}
-
-/*********************************************************************************/
-/* Featured                                                                      */
-/*********************************************************************************/
-
 .box {
-	padding: 3em 2em 2em 2em;
+	margin-top: 1rem;
+	padding: 2em 2em 2em 2em;
 	border: 1px solid rgba(0, 0, 0, 0.1);
 	border-radius: 8px;
 	text-align: center;
+	height: 7rem;
 }
 
 #extra {
