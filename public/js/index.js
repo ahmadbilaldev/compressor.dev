@@ -1,27 +1,18 @@
-// Global variables
-var timeout_to_show;
+// Stats of compression
 let stats = {
 	inputSize: 0,
 	compressedSize: 0,
+	timeTaken: 0,
 };
-// Padding function
-String.prototype.paddingLeft = function (paddingValue) {
-	return String(paddingValue + this).slice(-paddingValue.length);
-};
-
-// Enable tool tips
-$(document).ready(function () {
-	$('[data-toggle="tooltip"]').tooltip();
-});
 
 // UPLOAD FILE TO ENCODE
 $(document).ready(function () {
 	$('#huffman_encode_input').change(function (e) {
+		let startTime = performance.now();
 		var input = document.getElementById('huffman_encode_input');
 		var file = input.files[0];
 		loadFileToEncode(file, function (inputString) {
 			stats.inputSize = inputString.length;
-			console.log('INPUT: ', stats.inputSize);
 			// Sending POST request in the callback of loadFileToEncode
 			$.ajax({
 				url: '/encode',
@@ -34,7 +25,10 @@ $(document).ready(function () {
 					console.log('succes encode');
 					let byteArray = codesToByteArray(data.inpString, data.codeObj, data.zeroPad);
 					outputEncodedString(data.codeObj, byteArray, data.zeroPad);
-					update_huffman_compression();
+					let endTime = performance.now();
+					stats.timeTaken = endTime - startTime;
+					console.log('TIME: ', stats.timeTaken);
+					update_compression_stats();
 				},
 			});
 		});
@@ -210,33 +204,48 @@ function update_huffman_download(file_output, type) {
 	a.click();
 	document.body.removeChild(a);
 	window.URL.revokeObjectURL(url);
-	// $('#huffman_download').attr('href', url);
-	// $('#huffman_download').attr('download', type);
 }
 
-// Update compression percentage meter
-function update_huffman_compression() {
+// Update compression percentage on the front end
+function update_compression_stats() {
+	// Sizes
+	let sizeUnit = 'B';
+	// If in KBs
+	if (stats.inputSize > 1000) {
+		stats.inputSize = stats.inputSize / 1000;
+		stats.compressedSize = stats.compressedSize / 1000;
+		sizeUnit = 'KB';
+	}
+	// If in MBs
+	if (stats.inputSize > 1000) {
+		stats.inputSize = stats.inputSize / 1000;
+		stats.compressedSize = stats.compressedSize / 1000;
+		sizeUnit = 'MB';
+	}
+	$('#size-box').html(
+		'Input File Size: <strong>' +
+			stats.inputSize +
+			sizeUnit +
+			'</strong></br>Compressed Size: <strong>' +
+			stats.compressedSize +
+			sizeUnit +
+			'</strong>'
+	);
+
+	// Percentage
 	let percentage = (1 - stats.compressedSize / stats.inputSize) * 100;
+	percentage = Number.parseFloat(percentage).toFixed(1); // set precision to one decimal
+	$('#percentage-box').html('Compression Percentage: <strong>' + percentage + '%</strong>');
 
-	// Handle undefined
-	if (percentage === undefined) {
-		$('#huffman_compression_bar').css('width', '0%');
-		$('#huffman_compression').attr('data-original-title', '0%');
-		return;
-	}
-
-	// Format bar
-	$('#huffman_compression_bar').css('width', Math.abs(percentage) + '%');
-
-	if (percentage < 0) {
-		$('#huffman_compression_bar').removeClass('progress-bar-danger');
-		$('#huffman_compression_bar').addClass('progress-bar-danger');
-	} else {
-		$('#huffman_compression_bar').removeClass('progress-bar-danger');
-	}
-
-	$('#huffman_compression').attr('title', Math.round(percentage, 1) + '%');
+	// Time taken
+	stats.timeTaken = Math.round(stats.timeTaken);
+	$('#time-box').html('Time Taken: <strong>' + stats.timeTaken + 'ms</strong>');
 }
+
+// Padding function
+String.prototype.paddingLeft = function (paddingValue) {
+	return String(paddingValue + this).slice(-paddingValue.length);
+};
 
 function intToByteArray(int, byteArray) {
 	for (let index = 0; index < byteArray.length; index++) {
