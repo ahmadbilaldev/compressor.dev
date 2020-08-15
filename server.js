@@ -32,10 +32,7 @@ app.use(
 app.post('/decode', function (req, res) {
 	let encodedBits = req.body.bits;
 	let codingSchemeObject = req.body.obj;
-
 	let huffDecoded = huff.huffmanDecode(encodedBits, codingSchemeObject);
-	console.log('\nH Encoding: \n ');
-	console.log(huffDecoded);
 	let lzwDecoded = lzw.lzwDecode(huffDecoded);
 	res.send(lzwDecoded);
 });
@@ -53,9 +50,6 @@ app.use(
 app.post('/encode', function (req, res) {
 	let inputString = req.body.string;
 	let lzwEncoded = lzw.lzwEncode(inputString);
-	console.log('Encoding: \n ');
-	console.log(lzwEncoded);
-	console.log('encoding end');
 	let encodedObject = huff.huffmanEncode(lzwEncoded);
 	res.json(encodedObject);
 });
