@@ -38,10 +38,7 @@ node server.js
 
 
 
-- After the application is running use the sample file given in the sample folder for further usage
-```sh
-(https://github.com/ahmadbilaldev/CS311S20PID03/tree/master/sample)
-```
+- After the application is running use the sample file given in the sample folder for further usage [here](https://github.com/ahmadbilaldev/CS311S20PID03/tree/master/sample)
 
 ## Details
 
