@@ -35,6 +35,12 @@ node server.js
 
 - The server will be started. Go to your browser and open http://localhost:3000/
 
+
+- After the application is running use the sample file given in the sample folder for further usage
+```sh
+https://github.com/ahmadbilaldev/CS311S20PID03/tree/master/sample
+```
+
 ## Details
 
 This project is mainly based on Huffman Compression Algorithm that is a greedy lossless compression algorithm. But to take it one step further we used a subroutine algorithm LZW (Lempel-Ziv-Welch) Compression algorithm. This algorithm is also a lossless compression algorithm that uses a greedy approach. Although Huffman algorithm would have been enough but to increase its efficiency and compression rate, we have used LZW as a secondary subroutine algorithm, So, when a user provides an input file, LZW is implemented on it firstly and then Huffman is used on it for compression.
