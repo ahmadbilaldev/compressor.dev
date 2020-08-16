@@ -22,9 +22,9 @@ app.get('/', function (req, res) {
 // Configuring the bodyParser middleware
 app.use(
 	bodyParser.urlencoded({
-		limit: '20mb',
+		limit: '100mb',
 		extended: true,
-		parameterLimit: 50000,
+		parameterLimit: 500000,
 	})
 );
 
@@ -40,9 +40,9 @@ app.post('/decode', function (req, res) {
 // Configuring the bodyParser middleware
 app.use(
 	bodyParser.urlencoded({
-		limit: '20mb',
+		limit: '100mb',
 		extended: true,
-		parameterLimit: 50000,
+		parameterLimit: 500000,
 	})
 );
 
