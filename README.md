@@ -36,9 +36,11 @@ node server.js
 - The server will be started. Go to your browser and open http://localhost:3000/
 
 
+
+
 - After the application is running use the sample file given in the sample folder for further usage
 ```sh
-https://github.com/ahmadbilaldev/CS311S20PID03/tree/master/sample
+(https://github.com/ahmadbilaldev/CS311S20PID03/tree/master/sample)
 ```
 
 ## Details
