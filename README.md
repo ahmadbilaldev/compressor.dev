@@ -9,7 +9,9 @@
 
 ## How To Use 
 
-To use this project, make sure you have node and npm installed. If not, then follow the relevant guides for your operating system. Once they are installed, open your terminal and follow these steps to install this project:
+1. Use the deployed version: [**compressor.dev**](https://compressor-dev.herokuapp.com/)
+
+2. Use the local server. To use this project, make sure you have node and npm installed. If not, then follow the relevant guides for your operating system. Once they are installed, open your terminal and follow these steps to install this project:
 
 - First, open your terminal and clone this repository. 
 ```sh
