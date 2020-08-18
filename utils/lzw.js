@@ -56,7 +56,6 @@ function lzwDecode(encodedString) {
 		charCode++;
 		prevSelectedChar = selectedChar;
 	}
-	console.log(decodedString);
 	return decodedString;
 }
 

@@ -174,15 +174,10 @@ function huffmanDecode(encodedBits, codingSchemeObject) {
 
 	for (i = 0; i < encodedBits.length; i++) {
 		buffer += encodedBits.charAt(i);
-
-		if (codingSchemeObject[buffer] !== undefined) {
-			decodedString += codingSchemeObject[buffer];
-			buffer = '';
-		} else {
-			// console.log('ERROR\n');
-		}
+		decodedString += codingSchemeObject[buffer];
+		buffer = '';
 	}
-	// console.log(decodedString);
+
 	return decodedString;
 }
 
