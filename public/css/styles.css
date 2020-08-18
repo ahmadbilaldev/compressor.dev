@@ -44,9 +44,17 @@ body {
 }
 
 #loading-box {
-	color: black;
+	color: rgba(0, 0, 0, 0.6);
 	display: none;
 	margin-bottom: 1rem;
+}
+
+.fileinput-button:hover {
+	background: black;
+}
+
+.button:hover {
+	background: black;
 }
 
 html,
