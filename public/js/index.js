@@ -18,6 +18,7 @@ $(document).ready(function () {
 				alert('ERROR: The file is empty.');
 				return;
 			}
+			document.getElementById('loading-box').style.display = 'block';
 			// Sending POST request in the callback of loadFileToEncode
 			$.ajax({
 				url: '/encode',
@@ -30,6 +31,7 @@ $(document).ready(function () {
 					console.log('succes encode');
 					let byteArray = codesToByteArray(data.inpString, data.codeObj, data.zeroPad);
 					outputEncodedString(data.codeObj, byteArray, data.zeroPad);
+					document.getElementById('loading-box').style.display = 'none';
 					let endTime = performance.now();
 					stats.timeTaken = endTime - startTime;
 					console.log('TIME: ', stats.timeTaken);
@@ -124,6 +126,7 @@ $(document).ready(function () {
 				alert('ERROR: File is empty.');
 				return;
 			}
+			document.getElementById('loading-box').style.display = 'block';
 			$.ajax({
 				url: '/decode',
 				type: 'POST',
@@ -205,6 +208,7 @@ function update_huffman_download(file_output, type) {
 	a.click();
 	document.body.removeChild(a);
 	window.URL.revokeObjectURL(url);
+	document.getElementById('loading-box').style.display = 'none';
 }
 
 // Update Compression stats

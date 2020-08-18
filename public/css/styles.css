@@ -43,6 +43,12 @@ body {
 	margin-top: 5rem;
 }
 
+#loading-box {
+	color: black;
+	display: none;
+	margin-bottom: 1rem;
+}
+
 html,
 body {
 	height: 100%;
@@ -154,43 +160,6 @@ ul.staff li {
 ul.staff li img {
 	width: 80%;
 	border-radius: 50%;
-}
-
-/*********************************************************************************/
-/* Social Icon Styles                                                            */
-/*********************************************************************************/
-
-ul.contact {
-	margin: 0;
-	padding: 2em 0em 0em 0em;
-	list-style: none;
-}
-
-ul.contact li {
-	display: inline-block;
-	padding: 0em 0.3em;
-	font-size: 1em;
-}
-
-ul.contact li span {
-	display: none;
-	margin: 0;
-	padding: 0;
-}
-
-ul.contact li a {
-	color: #fff;
-}
-
-ul.contact li a:before {
-	display: inline-block;
-	background: #3f3f3f;
-	width: 40px;
-	height: 40px;
-	line-height: 40px;
-	border-radius: 20px;
-	text-align: center;
-	color: #ffffff;
 }
 
 /*********************************************************************************/
@@ -427,27 +396,6 @@ ul.contact li a:before {
 	margin-top: 2em;
 	display: inline-block;
 	text-align: center;
-}
-
-/*********************************************************************************/
-/* Copyright                                                                     */
-/*********************************************************************************/
-
-#copyright {
-	overflow: hidden;
-	padding: 5em 0em;
-	border-top: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-#copyright p {
-	text-align: center;
-	font-size: 1em;
-	color: rgba(255, 255, 255, 0.5);
-}
-
-#copyright a {
-	text-decoration: none;
-	color: rgba(255, 255, 255, 0.8);
 }
 
 /*********************************************************************************/
