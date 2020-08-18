@@ -219,12 +219,16 @@ function update_compression_stats() {
 	if (stats.inputSize > 1000) {
 		stats.inputSize = stats.inputSize / 1000;
 		stats.compressedSize = stats.compressedSize / 1000;
+		stats.inputSize = Number.parseFloat(stats.inputSize).toFixed(3);
+		stats.compressedSize = Number.parseFloat(stats.compressedSize).toFixed(3);
 		sizeUnit = 'KB';
 	}
 	// If in MBs
 	if (stats.inputSize > 1000) {
 		stats.inputSize = stats.inputSize / 1000;
 		stats.compressedSize = stats.compressedSize / 1000;
+		stats.inputSize = Number.parseFloat(stats.inputSize).toFixed(3);
+		stats.compressedSize = Number.parseFloat(stats.compressedSize).toFixed(3);
 		sizeUnit = 'MB';
 	}
 	$('#size-box').html(
