@@ -1,5 +1,5 @@
 <h4 align="center">
-        <img src="https://github.com/ahmadbilaldev/CS311S20PID03/blob/master/public/img/compressor.jpg" alt="compressor.dev" />
+        <img src="https://github.com/ahmadbilaldev/compressor.dev/blob/master/public/img/compressor.jpg" alt="compressor.dev" />
     <br>
     <br> 
  Fast and Efficient Compression and Decompression based on LZW + Huffman algorithm. 
@@ -15,12 +15,12 @@
 
 - First, open your terminal and clone this repository. 
 ```sh
-git clone https://github.com/ahmadbilaldev/CS311S20PID03
+git clone https://github.com/ahmadbilaldev/compressor.dev
 ```
 
 - Navigate to the cloned repository: 
 ```sh
-cd CS311S20PID03/
+cd compressor.dev/
 ```
 
 - Now, run the following command and wait until it is completed: 
@@ -38,7 +38,7 @@ node server.js
 
 
 
-- After the application is running use the sample file given in the sample folder for further usage [here](https://github.com/ahmadbilaldev/CS311S20PID03/tree/master/sample)
+- After the application is running use the sample file given in the sample folder for further usage [here](https://github.com/ahmadbilaldev/compressor.dev/tree/master/sample)
 
 ## Details
 
