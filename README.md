@@ -37,7 +37,7 @@ node server.js
 
 - You can use the sample file given in the sample folder [here](https://github.com/ahmadbilaldev/compressor.dev/tree/master/sample)
 
-<img width="837" alt="Screenshot 2021-04-19 at 1 39 22 PM" src="https://user-images.githubusercontent.com/19692245/115207052-aaafd500-a114-11eb-86b8-fc6839a80026.png">
+<h4 align="center"><img width="837" alt="Screenshot 2021-04-19 at 1 39 22 PM" src="https://user-images.githubusercontent.com/19692245/115207052-aaafd500-a114-11eb-86b8-fc6839a80026.png">
 
 ## Details
 
